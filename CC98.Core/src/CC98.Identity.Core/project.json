@@ -3,14 +3,14 @@
 	"language": "zh-CN",
 	"title": "CC98 Identity Core Package",
 	"description": "This package core types for CC98 idenetity objects.",
-	"authors": ["CC98"],
+	"authors": [ "CC98" ],
 	"copyright": "Copyright (c) CC98 2016. All rights are reserved.",
 
 	"packOptions": {
 		"projectUrl": "https://github.com/sgjsakura/CC98",
 		"licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
-		"tags": ["CC98"],
-		"owners": ["CC98"],
+		"tags": [ "CC98" ],
+		"owners": [ "CC98" ],
 		"releaseNotes": "Update to ASP.NET Core RTM"
 	},
 
@@ -44,5 +44,8 @@
 				"xmlDoc": true
 			}
 		}
+	},
+	"scripts": {
+		"postcompile": [ "dotnet pack --no-build -c Release" ]
 	}
 }
