@@ -1,12 +1,12 @@
 ﻿namespace CC98
 {
 	/// <summary>
-	/// 定义数据序列化所必需的方法。
+	///     定义数据序列化所必需的方法。
 	/// </summary>
 	public interface IDataSerializationService
 	{
 		/// <summary>
-		/// 用给定的格式解码数据。
+		///     用给定的格式解码数据。
 		/// </summary>
 		/// <typeparam name="T">数据的类型。</typeparam>
 		/// <param name="data">保存为二进制格式的数据。</param>
@@ -15,7 +15,7 @@
 		T Deserialize<T>(byte[] data, string format);
 
 		/// <summary>
-		/// 用给定的格式编码数据。
+		///     用给定的格式编码数据。
 		/// </summary>
 		/// <typeparam name="T">数据的类型。</typeparam>
 		/// <param name="data">要编码的数据。</param>
