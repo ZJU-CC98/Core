@@ -10,6 +10,23 @@ namespace CC98
 	public class CC98V2DatabaseModel : DbContext
 	{
 		/// <summary>
+		/// 初始化一个数据库上下文选项。
+		/// </summary>
+		public CC98V2DatabaseModel()
+		{
+
+		}
+
+		/// <summary>
+		/// 用给定的选项初始化一个数据库上下文对象。
+		/// </summary>
+		/// <param name="options">数据库上下文选项。</param>
+		public CC98V2DatabaseModel(DbContextOptions<CC98V2DatabaseModel> options) : base(options)
+		{
+
+		}
+
+		/// <summary>
 		///     获取或设置数据库中包含的应用的信息。
 		/// </summary>
 		public virtual DbSet<AppSetting> AppSettings { get; set; }

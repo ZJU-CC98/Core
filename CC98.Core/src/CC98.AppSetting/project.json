@@ -1,6 +1,6 @@
 {
 	"language": "zh-CN",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "CC98 AppSetting Package",
 	"description": "This package provide a generic meaner to access application specific settings for CC98 Applications.",
 	"authors": [ "CC98" ],
@@ -11,7 +11,7 @@
 		"licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
 		"tags": [ "CC98" ],
 		"owners": [ "CC98" ],
-		"releaseNotes": "Update to ASP.NET Core RTM"
+		"releaseNotes": "Add database initialization overrides in order to support implicit configuration."
 	},
 
 	"dependencies": {
