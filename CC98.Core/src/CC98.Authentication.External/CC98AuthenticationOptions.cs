@@ -2,7 +2,6 @@
 using CC98.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace CC98.Authentication
@@ -17,7 +16,6 @@ namespace CC98.Authentication
         /// </summary>
         public CC98AuthenticationOptions()
         {
-
             // 终结点地址
             AuthorizationEndpoint = CC98AuthenticationDefaults.AuthorizationEndPoint;
             TokenEndpoint = CC98AuthenticationDefaults.TokenEndPoint;
@@ -26,9 +24,7 @@ namespace CC98.Authentication
             // 回调地址
             CallbackPath = new PathString(CC98AuthenticationDefaults.CallbackPath);
 
-#if NETSTANDARD1_3 || NET451
-
-            // 验证方案名称
+#if NETSTANDARD1_3 || NET451 // 验证方案名称
             AuthenticationScheme = CC98AuthenticationDefaults.AuthenticationScheme;
             // 默认标题
             DisplayName = CC98AuthenticationDefaults.DisplayName;

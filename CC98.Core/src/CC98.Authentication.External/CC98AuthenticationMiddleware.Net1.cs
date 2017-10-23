@@ -1,18 +1,8 @@
-﻿using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-namespace CC98.Authentication
+﻿namespace CC98.Authentication
 {
-
-#if NETSTANDARD1_3 || NET451
-    /// <summary>
-    ///     表示 CC98 身份验证中间件。
-    /// </summary>
+#if NETSTANDARD1_3 || NET451 /// <summary>
+///     表示 CC98 身份验证中间件。
+/// </summary>
     public class CC98AuthenticationMiddleware : OAuthMiddleware<CC98AuthenticationOptions>
     {
         /// <summary>
@@ -41,5 +31,4 @@ namespace CC98.Authentication
         }
     }
 #endif
-
 }

@@ -8,18 +8,13 @@ namespace CC98.Authentication
 {
     /// <inheritdoc />
     /// <summary>
-    /// 提供将类型为数组的 JSON 属性映射到多个声明的方法。
+    ///     提供将类型为数组的 JSON 属性映射到多个声明的方法。
     /// </summary>
     public class ArrayJsonKeyClaimAction : ClaimAction
     {
-        /// <summary>
-        /// 要映射的 JSON 属性名称。
-        /// </summary>
-        public string JsonKey { get; }
-
         /// <inheritdoc />
         /// <summary>
-        /// 初始化一个 <see cref="T:CC98.Authentication.ArrayJsonKeyClaimAction" /> 对象的新实例。
+        ///     初始化一个 <see cref="T:CC98.Authentication.ArrayJsonKeyClaimAction" /> 对象的新实例。
         /// </summary>
         /// <param name="claimType">声明的类型。</param>
         /// <param name="valueType">声明的值的类型。</param>
@@ -30,18 +25,22 @@ namespace CC98.Authentication
             JsonKey = jsonKey;
         }
 
+        /// <summary>
+        ///     要映射的 JSON 属性名称。
+        /// </summary>
+        public string JsonKey { get; }
+
+        /// <inheritdoc />
         public override void Run(JObject userData, ClaimsIdentity identity, string issuer)
         {
             var items = userData[JsonKey];
 
             if (items is JArray array)
-            {
                 foreach (var item in array)
                 {
-                    var claim = new Claim(ClaimType, (string)item, ValueType, issuer);
+                    var claim = new Claim(ClaimType, (string) item, ValueType, issuer);
                     identity.AddClaim(claim);
                 }
-            }
         }
     }
 }
