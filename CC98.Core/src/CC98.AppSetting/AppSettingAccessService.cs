@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace CC98
@@ -8,21 +10,27 @@ namespace CC98
     /// <summary>
     ///     为应用程序设置功能提供访问接口。
     /// </summary>
-    public class AppSettingAccessService
+    public class AppSettingAccessService : IDisposable
     {
         /// <summary>
         ///     初始化一个应用程序设置工具的新实例。
         /// </summary>
-        /// <param name="dbContext">数据库连接对象。</param>
+        /// <param name="scopeFactory">提供区域的创建操作。</param>
         /// <param name="options">应用设置对象。</param>
         /// <param name="serializationService">数据的序列化帮助程序。</param>
-        public AppSettingAccessService(CC98V2DatabaseModel dbContext, IOptions<AppSettingAccessOptions> options,
+        public AppSettingAccessService(IServiceScopeFactory scopeFactory, IOptions<AppSettingAccessOptions> options,
             IDataSerializationService serializationService)
         {
-            DbContext = dbContext;
+            ServiceScope = scopeFactory.CreateScope();
+            DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DatabaseModel>();
             Options = options.Value;
             SerializationService = serializationService;
         }
+
+        /// <summary>
+        /// 应用服务区域。
+        /// </summary>
+        private IServiceScope ServiceScope { get; }
 
         /// <summary>
         ///     获取数据库对象。
@@ -46,8 +54,8 @@ namespace CC98
         public AppSetting LoadSettingItem()
         {
             return (from i in DbContext.AppSettings
-                where i.AppName == Options.AppName
-                select i).SingleOrDefault();
+                    where i.AppName == Options.AppName
+                    select i).SingleOrDefault();
         }
 
         /// <summary>
@@ -57,8 +65,8 @@ namespace CC98
         public Task<AppSetting> LoadSettingItemAsync()
         {
             return (from i in DbContext.AppSettings
-                where i.AppName == Options.AppName
-                select i).SingleOrDefaultAsync();
+                    where i.AppName == Options.AppName
+                    select i).SingleOrDefaultAsync();
         }
 
         /// <summary>
@@ -227,6 +235,15 @@ namespace CC98
             // 否则写入新内容
             await SaveSettingAsync(defaultValue);
             return defaultValue;
+        }
+
+        /// <summary>
+        /// 释放该对象占用的所有资源。
+        /// </summary>
+        public void Dispose()
+        {
+            DbContext?.Dispose();
+            ServiceScope?.Dispose();
         }
     }
 }

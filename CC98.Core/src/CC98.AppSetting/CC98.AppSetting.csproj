@@ -11,13 +11,14 @@
     <AssemblyName>CC98.AppSetting</AssemblyName>
     <PackageId>CC98.AppSetting</PackageId>
     <PackageTags>CC98</PackageTags>
-    <PackageReleaseNotes>Add database initialization overrides in order to support implicit configuration.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to match the service scope requirement in ASP.NET Core 2.0</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.3' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
