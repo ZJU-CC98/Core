@@ -34,7 +34,7 @@ namespace CC98.Authentication
 #if NETSTANDARD2_0
             ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "v2Id", ClaimValueTypes.Integer);
             ClaimActions.MapJsonKey(ClaimTypes.Name, "name", ClaimValueTypes.String);
-            ClaimActions.MapArrayJsonKey(ClaimTypes.Role, "role", ClaimValueTypes.String);
+            ClaimActions.MapArrayJsonKey(ClaimTypes.Role, "roles", ClaimValueTypes.String);
             ClaimActions.MapJsonKey(CC98UserClaimTypes.OldId, "v1Id", ClaimValueTypes.Integer);
             ClaimActions.MapJsonKey(CC98UserClaimTypes.PortraitUri, "portraitUrl", ClaimValueTypes.String);
 #endif

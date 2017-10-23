@@ -10,14 +10,14 @@
     <AssemblyName>CC98.Authentication.External</AssemblyName>
     <PackageId>CC98.Authentication.External</PackageId>
     <PackageTags>CC98</PackageTags>
-    <PackageReleaseNotes>ASP.NET Core 2.0 Support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix Role Error</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <RootNamespace>CC98.Authentication</RootNamespace>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
