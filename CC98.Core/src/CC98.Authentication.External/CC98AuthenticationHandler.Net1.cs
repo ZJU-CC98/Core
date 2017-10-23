@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NETSTANDARD1_3 || NET451
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -15,21 +17,22 @@ using Newtonsoft.Json;
 
 namespace CC98.Authentication
 {
-	/// <summary>
-	///     表示 CC98 身份验证处理程序。
-	/// </summary>
-	internal class CC98AuthenticationHandler : OAuthHandler<CC98AuthenticationOptions>
-	{
-		/// <summary>
-		///     初始化一个 CC98 身份验证处理程序的新实例。
-		/// </summary>
-		/// <param name="backChannel">处理程序使用的后台 HTTP 通讯组件。</param>
-		public CC98AuthenticationHandler(HttpClient backChannel)
-			: base(backChannel)
-		{
-		}
 
-		protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity,
+    /// <summary>
+    ///     表示 CC98 身份验证处理程序。
+    /// </summary>
+    internal class CC98AuthenticationHandler : OAuthHandler<CC98AuthenticationOptions>
+    {
+        /// <summary>
+        ///     初始化一个 CC98 身份验证处理程序的新实例。
+        /// </summary>
+        /// <param name="backChannel">处理程序使用的后台 HTTP 通讯组件。</param>
+        public CC98AuthenticationHandler(HttpClient backChannel)
+            : base(backChannel)
+        {
+        }
+
+        protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity,
 			AuthenticationProperties properties, OAuthTokenResponse tokens)
 		{
 			try
@@ -108,3 +111,5 @@ namespace CC98.Authentication
 		}
 	}
 }
+
+#endif

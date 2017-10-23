@@ -8,7 +8,7 @@
 		/// <summary>
 		///     获取身份验证方案的名称。该字段为常量。
 		/// </summary>
-		public const string AuthentcationScheme = "CC98";
+		public const string AuthenticationScheme = "CC98";
 
 		/// <summary>
 		///     获取验证方法的显示名称。该字段为常量。
