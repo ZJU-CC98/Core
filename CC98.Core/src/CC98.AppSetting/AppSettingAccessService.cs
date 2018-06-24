@@ -22,7 +22,7 @@ namespace CC98
             IDataSerializationService serializationService)
         {
             ServiceScope = scopeFactory.CreateScope();
-            DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DatabaseModel>();
+	        DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DatabaseModel>();
             Options = options.Value;
             SerializationService = serializationService;
         }
