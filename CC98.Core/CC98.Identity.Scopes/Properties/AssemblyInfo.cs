@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CC98.Identity.Scopes")]
+[assembly: AssemblyCompany("CC98")]
+[assembly: AssemblyProduct("CC98")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
