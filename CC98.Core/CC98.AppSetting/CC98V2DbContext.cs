@@ -7,20 +7,13 @@ namespace CC98
     /// <summary>
     ///     定义 CC98 V2 数据库结构。
     /// </summary>
-    public class CC98V2DatabaseModel : DbContext
+    public class CC98V2DbContext : DbContext
     {
-        /// <summary>
-        ///     初始化一个数据库上下文选项。
-        /// </summary>
-        public CC98V2DatabaseModel()
-        {
-        }
-
-        /// <summary>
+	    /// <summary>
         ///     用给定的选项初始化一个数据库上下文对象。
         /// </summary>
         /// <param name="options">数据库上下文选项。</param>
-        public CC98V2DatabaseModel(DbContextOptions<CC98V2DatabaseModel> options) : base(options)
+        public CC98V2DbContext(DbContextOptions<CC98V2DbContext> options) : base(options)
         {
         }
 

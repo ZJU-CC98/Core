@@ -3,6 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.0</TargetFramework>
 		<RootNamespace>CC98.Services.Web</RootNamespace>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>CC98</Authors>
+		<Company>CC98</Company>
+		<Product>CC98</Product>
+		<Description>为 CC98 Web 应用程序提供上传服务功能的辅助支持。</Description>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>

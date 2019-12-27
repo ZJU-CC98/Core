@@ -22,7 +22,7 @@ namespace CC98
             IDataSerializationService serializationService)
         {
             ServiceScope = scopeFactory.CreateScope();
-	        DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DatabaseModel>();
+	        DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
             Options = options.Value;
             SerializationService = serializationService;
         }
@@ -35,7 +35,7 @@ namespace CC98
         /// <summary>
         ///     获取数据库对象。
         /// </summary>
-        private CC98V2DatabaseModel DbContext { get; }
+        private CC98V2DbContext DbContext { get; }
 
         /// <summary>
         ///     获取设置对象。
