@@ -78,7 +78,7 @@ namespace CC98.Services
 
 				if (response.IsError)
 				{
-					throw new InvalidOperationException(response.ErrorDescription, response.Exception);
+					throw new InvalidOperationException(response.ErrorDescription ?? response.Error, response.Exception);
 				}
 
 				TokenResponse = response;
@@ -125,8 +125,7 @@ namespace CC98.Services
 		{
 			var scopeList = new HashSet<string>(Config.AdditionalScopes ?? Array.Empty<string>())
 			{
-				OidcConstants.StandardScopes.OpenId,
-				OidcConstants.StandardScopes.Profile
+				ApiScopes.FileUpload
 			};
 
 
