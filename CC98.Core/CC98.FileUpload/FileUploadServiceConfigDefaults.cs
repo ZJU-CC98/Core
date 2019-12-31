@@ -14,8 +14,12 @@
 		/// </summary>
 		public const string ApiUri = "https://api.cc98.org/file/service";
 		/// <summary>
-		/// <see cref="FileUploadService.FormKey"/> 的默认值。该字段为常量。
+		/// <see cref="FileUploadService.FileFormKey"/> 的默认值。该字段为常量。
 		/// </summary>
-		public const string FormKey = "files";
+		public const string FileFormKey = "files";
+		/// <summary>
+		/// <see cref="FileUploadService.CompressFormKey"/> 的默认值。该字段为常量。
+		/// </summary>
+		public const string CompressFormKey = "compressImage";
 	}
 }

@@ -21,12 +21,24 @@ namespace CC98.Services.Web
 		}
 
 		/// <summary>
-		/// 将使用 HTTP 上传的文件上传到服务器。
+		/// 将使用 HTTP 上传的文件上传到服务器。使用默认压缩设置。
 		/// </summary>
 		/// <param name="files">要上传的一个或多个表单文件。</param>
 		/// <param name="cancellationToken">用于取消操作的令牌。</param>
 		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
-		public async Task<IEnumerable<string>> UploadAsync([NotNull] IEnumerable<IFormFile> files, CancellationToken cancellationToken = default)
+		public Task<IEnumerable<string>> UploadAsync([NotNull] IEnumerable<IFormFile> files,
+			CancellationToken cancellationToken = default)
+			=> UploadAsync(files, InnerService.Config.CompressByDefault, cancellationToken);
+
+		/// <summary>
+		/// 将使用 HTTP 上传的文件上传到服务器。
+		/// </summary>
+		/// <param name="files">要上传的一个或多个表单文件。</param>
+		/// <param name="compressImage">是否压缩图像。</param>
+		/// <param name="cancellationToken">用于取消操作的令牌。</param>
+		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
+		public async Task<IEnumerable<string>> UploadAsync([NotNull] IEnumerable<IFormFile> files, bool compressImage,
+			CancellationToken cancellationToken = default)
 		{
 			if (files == null)
 			{
@@ -48,7 +60,7 @@ namespace CC98.Services.Web
 
 			try
 			{
-				return await InnerService.UploadAsync(realFiles, cancellationToken);
+				return await InnerService.UploadAsync(realFiles, compressImage, cancellationToken);
 			}
 			finally
 			{
@@ -61,12 +73,23 @@ namespace CC98.Services.Web
 		}
 
 		/// <summary>
-		/// 将本地文件上传到服务器。
+		/// 将本地文件上传到服务器。使用默认压缩设置。
 		/// </summary>
 		/// <param name="filePaths">要上传的一个或多个本地文件的路径。</param>
 		/// <param name="cancellationToken">用于取消操作的令牌。</param>
 		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
-		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<string> filePaths, CancellationToken cancellationToken = default)
+		public Task<IEnumerable<string>> UploadAsync(IEnumerable<string> filePaths,
+			CancellationToken cancellationToken = default)
+			=> UploadAsync(filePaths, InnerService.Config.CompressByDefault, cancellationToken);
+
+		/// <summary>
+		/// 将本地文件上传到服务器。
+		/// </summary>
+		/// <param name="filePaths">要上传的一个或多个本地文件的路径。</param>
+		/// <param name="compressImage">是否压缩图像。</param>
+		/// <param name="cancellationToken">用于取消操作的令牌。</param>
+		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
+		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<string> filePaths, bool compressImage, CancellationToken cancellationToken = default)
 		{
 			if (filePaths == null)
 			{
@@ -88,7 +111,7 @@ namespace CC98.Services.Web
 
 			try
 			{
-				return await InnerService.UploadAsync(realFiles, cancellationToken);
+				return await InnerService.UploadAsync(realFiles, compressImage, cancellationToken);
 			}
 			finally
 			{
@@ -101,12 +124,23 @@ namespace CC98.Services.Web
 		}
 
 		/// <summary>
-		/// 将给定的文件上传到服务器。
+		/// 将给定的文件上传到服务器。使用默认压缩设置。
 		/// </summary>
 		/// <param name="filePaths">要上传的一个或多个文件的信息。</param>
 		/// <param name="cancellationToken">用于取消操作的令牌。</param>
 		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
-		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files, CancellationToken cancellationToken = default)
+		public Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files,
+			CancellationToken cancellationToken = default)
+			=> UploadAsync(files, InnerService.Config.CompressByDefault, cancellationToken);
+
+		/// <summary>
+		/// 将给定的文件上传到服务器。
+		/// </summary>
+		/// <param name="filePaths">要上传的一个或多个文件的信息。</param>
+		/// <param name="compressImage">是否压缩图像。</param>
+		/// <param name="cancellationToken">用于取消操作的令牌。</param>
+		/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
+		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files, bool compressImage, CancellationToken cancellationToken = default)
 		{
 			if (files == null)
 			{
@@ -120,7 +154,8 @@ namespace CC98.Services.Web
 				return Array.Empty<string>();
 			}
 
-			return await InnerService.UploadAsync(files, cancellationToken);
+			return await InnerService.UploadAsync(files, compressImage, cancellationToken);
 		}
+
 	}
 }

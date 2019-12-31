@@ -42,6 +42,16 @@ namespace CC98.Services
 		/// <summary>
 		/// 上传文件时使用的表单名称。
 		/// </summary>
-		public string FormKey { get; set; } = FileUploadServiceConfigDefaults.FormKey;
+		public string FileFormKey { get; set; } = FileUploadServiceConfigDefaults.FileFormKey;
+
+		/// <summary>
+		/// 是否压缩的表单名称。
+		/// </summary>
+		public string CompressFormKey { get; set; } = FileUploadServiceConfigDefaults.CompressFormKey;
+
+		/// <summary>
+		/// 获取或设置一个值，指示是否默认开启压缩。
+		/// </summary>
+		public bool CompressByDefault { get; set; }
 	}
 }
