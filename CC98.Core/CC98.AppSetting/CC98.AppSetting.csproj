@@ -1,43 +1,50 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This package provide a generic meaner to access application specific settings for CC98 Applications.</Description>
-    <Copyright>Copyright (c) CC98 2016. All rights are reserved.</Copyright>
-    <AssemblyTitle>CC98 AppSetting Package</AssemblyTitle>
-    <NeutralLanguage>zh-CN</NeutralLanguage>
-    <VersionPrefix>1.0.1</VersionPrefix>
-    <Authors>CC98</Authors>
-    <TargetFrameworks>netstandard1.3;net451</TargetFrameworks>
-    <AssemblyName>CC98.AppSetting</AssemblyName>
-    <PackageId>CC98.AppSetting</PackageId>
-    <PackageTags>CC98</PackageTags>
-    <PackageReleaseNotes>Update to match the service scope requirement in ASP.NET Core 2.0</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.3' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>2.1.0</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This package provide a generic meaner to access application specific settings for CC98 Applications.</Description>
+		<Copyright>Copyright (c) CC98 2016. All rights are reserved.</Copyright>
+		<AssemblyTitle>CC98 AppSetting Package</AssemblyTitle>
+		<NeutralLanguage>zh-CN</NeutralLanguage>
+		<VersionPrefix>1.0.1</VersionPrefix>
+		<Authors>CC98</Authors>
+		<TargetFrameworks>netstandard1.3;net451;netcoreapp3.0</TargetFrameworks>
+		<AssemblyName>CC98.AppSetting</AssemblyName>
+		<PackageId>CC98.AppSetting</PackageId>
+		<PackageTags>CC98</PackageTags>
+		<PackageReleaseNotes>Update to match the service scope requirement in ASP.NET Core 3.0</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.3' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<Version>2.1.1</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.0.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="1.0.0" />
+		<PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
 
 </Project>
