@@ -62,7 +62,7 @@ namespace CC98.Services.Web
 
 			try
 			{
-				return await InnerService.UploadAsync(realFiles, compressImage, cancellationToken);
+				return await InnerService.UploadAsync(realFiles, subPath, compressImage, cancellationToken);
 			}
 			finally
 			{
