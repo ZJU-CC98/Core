@@ -9,7 +9,7 @@
 		<Product>CC98</Product>
 		<Description>为 CC98 Web 应用程序提供上传服务功能的辅助支持。</Description>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

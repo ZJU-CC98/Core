@@ -17,7 +17,7 @@ namespace CC98.Services.Web
 		/// <param name="services">服务容器对象。</param>
 		/// <param name="configOptions">用于配置文件传输服务配置的配置方法。</param>
 		/// <returns><paramref name="services"/> 对象。</returns>
-		public static IServiceCollection AddCC98FileUploadWebSerivce(this IServiceCollection services, Action<FileUploadServiceConfig> configOptions = null)
+		public static IServiceCollection AddCC98FileUploadWebService(this IServiceCollection services, Action<FileUploadServiceConfig> configOptions = null)
 		{
 			services.TryAddSingleton<FileUploadWebService>();
 

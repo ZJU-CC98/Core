@@ -50,6 +50,16 @@ namespace CC98.Services
 		public string CompressFormKey { get; set; } = FileUploadServiceConfigDefaults.CompressFormKey;
 
 		/// <summary>
+		/// 上传文件的子路径数据的键名称。
+		/// </summary>
+		public string SubPathKey { get; set; } = FileUploadServiceConfigDefaults.SubPathKey;
+
+		/// <summary>
+		/// 上传文件的子路径。
+		/// </summary>
+		public string DefaultSubPath { get; set; }
+
+		/// <summary>
 		/// 获取或设置一个值，指示是否默认开启压缩。
 		/// </summary>
 		public bool CompressByDefault { get; set; }

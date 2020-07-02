@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
@@ -152,10 +153,11 @@ namespace CC98.Services
 		/// 向服务器上传一个或多个文件。
 		/// </summary>
 		/// <param name="files">要上传的文件的集合。</param>
-		/// <param name="compressImage">是否压缩图像。</param>
+		/// <param name="subPath">上传子路径。</param>
+		/// <param name="compressImages">是否压缩图像。</param>
 		/// <param name="cancellationToken">用于取消操作的令牌。</param>
 		/// <returns>表示异步操作的任务。操作结果包含上传后实际可访问的文件的路径。</returns>
-		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files, bool compressImage, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files, string subPath, bool compressImages, CancellationToken cancellationToken = default)
 		{
 			// 检查令牌。
 			await EnsureTokenResponseAsync(cancellationToken);
@@ -167,13 +169,18 @@ namespace CC98.Services
 
 				var fileContent = new MultipartFormDataContent();
 
+				
+
 				foreach (var file in files)
 				{
 					fileContent.Add(new StreamContent(file.Stream), Config.FileFormKey, file.FileName);
 				}
 
 				// 压缩设置
-				fileContent.Add(new StringContent(compressImage.ToString()), Config.CompressFormKey);
+				fileContent.Add(new StringContent(compressImages.ToString()), Config.CompressFormKey);
+
+				// DefaultSubPath
+				fileContent.Add(new StringContent(subPath ?? string.Empty), Config.SubPathKey);
 
 				var response = await httpClient.PostAsync(Config.ApiUri, fileContent, cancellationToken);
 				response.EnsureSuccessStatusCode();
@@ -190,6 +197,6 @@ namespace CC98.Services
 		/// <returns>表示异步操作的任务。操作结果包含上传后实际可访问的文件的路径。</returns>
 		public Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files,
 			CancellationToken cancellationToken = default) =>
-			UploadAsync(files, Config.CompressByDefault, cancellationToken);
+			UploadAsync(files, Config.DefaultSubPath, Config.CompressByDefault, cancellationToken);
 	}
 }
