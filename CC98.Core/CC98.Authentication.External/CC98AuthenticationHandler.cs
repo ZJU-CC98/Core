@@ -41,7 +41,7 @@ namespace CC98.Authentication
 				var message = new HttpRequestMessage(HttpMethod.Get, Options.UserInformationEndpoint);
 
 				// Authorization 标头
-				message.Headers.Authorization = new AuthenticationHeaderValue(tokens.TokenType, tokens.AccessToken);
+				message.Headers.Authorization = new(tokens.TokenType, tokens.AccessToken);
 
 				// 发送 GET 请求
 				var response = await Backchannel.SendAsync(message);
@@ -63,12 +63,12 @@ namespace CC98.Authentication
 					// 基本信息
 					var claims = new List<Claim>
 					{
-						new Claim(ClaimTypes.NameIdentifier, userInfo.V2Id.ToString("D", CultureInfo.InvariantCulture),
+						new(ClaimTypes.NameIdentifier, userInfo.V2Id.ToString("D", CultureInfo.InvariantCulture),
 							ClaimValueTypes.Integer, Options.ClaimsIssuer),
-						new Claim(CC98UserClaimTypes.OldId, userInfo.V1Id.ToString("D", CultureInfo.InvariantCulture),
+						new(CC98UserClaimTypes.OldId, userInfo.V1Id.ToString("D", CultureInfo.InvariantCulture),
 							ClaimValueTypes.Integer, Options.ClaimsIssuer),
-						new Claim(ClaimTypes.Name, userInfo.Name, ClaimValueTypes.String, Options.ClaimsIssuer),
-						new Claim(CC98UserClaimTypes.PortraitUri, userInfo.PortraitUrl, ClaimTypes.Uri, Options.ClaimsIssuer)
+						new(ClaimTypes.Name, userInfo.Name, ClaimValueTypes.String, Options.ClaimsIssuer),
+						new(CC98UserClaimTypes.PortraitUri, userInfo.PortraitUrl, ClaimTypes.Uri, Options.ClaimsIssuer)
 					};
 					claims.AddRange(
 						userInfo.Roles.Select(
@@ -79,12 +79,12 @@ namespace CC98.Authentication
 					// 访问令牌
 					if (Options.SaveTokens)
 					{
-						claims.Add(new Claim(CC98UserClaimTypes.AccessToken, tokens.AccessToken, ClaimValueTypes.String,
+						claims.Add(new(CC98UserClaimTypes.AccessToken, tokens.AccessToken, ClaimValueTypes.String,
 							Options.ClaimsIssuer));
 					}
 
 					// IdentityProvider
-					claims.Add(new Claim(IdentityHelper.IdentityProviderClaimType, Options.AuthenticationScheme,
+					claims.Add(new(IdentityHelper.IdentityProviderClaimType, Options.AuthenticationScheme,
 						ClaimValueTypes.String, Options.ClaimsIssuer));
 
 					// 添加所有生命对象
@@ -94,7 +94,7 @@ namespace CC98.Authentication
 					var principal = new ClaimsPrincipal(identity);
 
 					// 返回结果
-					return new AuthenticationTicket(principal, properties, Options.AuthenticationScheme);
+					return new(principal, properties, Options.AuthenticationScheme);
 				}
 				catch (Exception ex)
 				{

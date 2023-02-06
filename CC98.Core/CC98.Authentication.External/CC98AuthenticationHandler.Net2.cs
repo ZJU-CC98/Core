@@ -38,7 +38,7 @@ namespace CC98.Authentication
             var message = new HttpRequestMessage(HttpMethod.Get, Options.UserInformationEndpoint);
 
             // Authorization 标头
-            message.Headers.Authorization = new AuthenticationHeaderValue(tokens.TokenType, tokens.AccessToken);
+            message.Headers.Authorization = new(tokens.TokenType, tokens.AccessToken);
 
             // 发送 GET 请求
             var response = await Backchannel.SendAsync(message);
@@ -54,12 +54,12 @@ namespace CC98.Authentication
             var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // 执行声明处理
-            var context = new OAuthCreatingTicketContext(new ClaimsPrincipal(identity), properties, Context, Scheme,
+            var context = new OAuthCreatingTicketContext(new(identity), properties, Context, Scheme,
                 Options, Backchannel, tokens, payload);
             context.RunClaimActions();
 
             await Events.CreatingTicket(context);
-            return new AuthenticationTicket(context.Principal, context.Properties, Scheme.Name);
+            return new(context.Principal, context.Properties, Scheme.Name);
         }
     }
 }

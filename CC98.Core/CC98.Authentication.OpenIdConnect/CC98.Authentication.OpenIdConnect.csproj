@@ -9,6 +9,7 @@
 		<PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
 		<PackageTags>CC98</PackageTags>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">

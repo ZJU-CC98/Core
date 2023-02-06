@@ -10,6 +10,7 @@
     <Product>CC98</Product>
     <Description>为 CC98 应用提供文件上传核心服务。</Description>
     <Version>1.1.1</Version>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

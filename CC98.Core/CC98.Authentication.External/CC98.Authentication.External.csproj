@@ -19,6 +19,7 @@
     <RootNamespace>CC98.Authentication</RootNamespace>
     <Version>2.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
