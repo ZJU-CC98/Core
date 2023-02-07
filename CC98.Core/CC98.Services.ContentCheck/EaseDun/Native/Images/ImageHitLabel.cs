@@ -3,10 +3,15 @@
 namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
 /// <summary>
-/// 定义图像安全检测命中的标签信息。
+///     定义图像安全检测命中的标签信息。
 /// </summary>
 public class ImageHitLabel : IHitLabel
 {
+	/// <summary>
+	///     本次命中的详细子分类信息。
+	/// </summary>
+	public ImageHitSubLabel[]? SubLabels { get; set; }
+
 	/// <summary>
 	///     命中的标签类型。
 	/// </summary>
@@ -21,11 +26,6 @@ public class ImageHitLabel : IHitLabel
 	///     本标签的结果命中类型。
 	/// </summary>
 	public required ItemResultSuggestion Level { get; set; }
-
-	/// <summary>
-	///     本次命中的详细子分类信息。
-	/// </summary>
-	public ImageHitSubLabel[]? SubLabels { get; set; }
 
 	/// <inheritdoc />
 	IEnumerable<IHitSubLabel>? IHitLabel.SubLabels => SubLabels;

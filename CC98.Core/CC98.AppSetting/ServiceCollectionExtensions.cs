@@ -1,9 +1,4 @@
-﻿using System;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
-namespace CC98;
+﻿namespace CC98;
 
 /// <summary>
 ///     为服务注入功能提供扩展方法。该类型为静态类型。

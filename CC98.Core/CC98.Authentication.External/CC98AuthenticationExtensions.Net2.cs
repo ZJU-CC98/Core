@@ -1,5 +1,4 @@
 ﻿#if NETSTANDARD2_0
-
 using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;

@@ -3,7 +3,7 @@
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
 /// <summary>
-/// 表示对内容的审查结果。
+///     表示对内容的审查结果。
 /// </summary>
 public interface IAntiSpamInfo
 {

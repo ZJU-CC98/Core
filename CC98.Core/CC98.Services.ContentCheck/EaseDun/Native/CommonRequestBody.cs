@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
-
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;
@@ -50,7 +48,7 @@ public class CommonRequestBody
 	public string? SignatureMethod { get; set; }
 
 	/// <summary>
-	///     请求签名。该信息将在 <see cref="GenerateSignature"/> 方法中自动生成。
+	///     请求签名。该信息将在 <see cref="GenerateSignature" /> 方法中自动生成。
 	/// </summary>
 	[StringLength(32)]
 	public string? Signature { get; private set; }

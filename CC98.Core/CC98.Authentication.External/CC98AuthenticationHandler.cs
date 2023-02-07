@@ -1,38 +1,24 @@
 ﻿#if NETSTANDARD1_3 || NET451
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using CC98.Identity;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace CC98.Authentication
 {
+	/// <summary>
+	///     表示 CC98 身份验证处理程序。
+	/// </summary>
+	internal class CC98AuthenticationHandler : OAuthHandler<CC98AuthenticationOptions>
+	{
+		/// <summary>
+		///     初始化一个 CC98 身份验证处理程序的新实例。
+		/// </summary>
+		/// <param name="backChannel">处理程序使用的后台 HTTP 通讯组件。</param>
+		public CC98AuthenticationHandler(HttpClient backChannel)
+			: base(backChannel)
+		{
+		}
 
-    /// <summary>
-    ///     表示 CC98 身份验证处理程序。
-    /// </summary>
-    internal class CC98AuthenticationHandler : OAuthHandler<CC98AuthenticationOptions>
-    {
-        /// <summary>
-        ///     初始化一个 CC98 身份验证处理程序的新实例。
-        /// </summary>
-        /// <param name="backChannel">处理程序使用的后台 HTTP 通讯组件。</param>
-        public CC98AuthenticationHandler(HttpClient backChannel)
-            : base(backChannel)
-        {
-        }
-
-        protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity,
+		protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity,
 			AuthenticationProperties properties, OAuthTokenResponse tokens)
 		{
 			try
@@ -78,10 +64,8 @@ namespace CC98.Authentication
 
 					// 访问令牌
 					if (Options.SaveTokens)
-					{
 						claims.Add(new(CC98UserClaimTypes.AccessToken, tokens.AccessToken, ClaimValueTypes.String,
 							Options.ClaimsIssuer));
-					}
 
 					// IdentityProvider
 					claims.Add(new(IdentityHelper.IdentityProviderClaimType, Options.AuthenticationScheme,

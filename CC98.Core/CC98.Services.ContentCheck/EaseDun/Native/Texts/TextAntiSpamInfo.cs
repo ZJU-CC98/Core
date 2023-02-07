@@ -18,6 +18,21 @@ public class TextAntiSpamInfo : IAntiSpamInfo
 	public required string DataId { get; set; }
 
 	/// <summary>
+	///     本次结果涉及到的不同策略版本信息。在跨版本比较中，可用于比较不同版本的效果。未进行跨版本比较时该属性为 <c>null</c>。
+	/// </summary>
+	public StrategyVersion[]? StrategyVersions { get; set; }
+
+	/// <summary>
+	///     是否为关联命中。
+	/// </summary>
+	public required bool IsRelatedHit { get; set; }
+
+	/// <summary>
+	///     本次检测命中的所有标签。
+	/// </summary>
+	public required TextHitLabel[] Labels { get; set; }
+
+	/// <summary>
 	///     对结果的推荐处理操作。
 	/// </summary>
 	public required ItemResultSuggestion Suggestion { get; set; }
@@ -38,22 +53,7 @@ public class TextAntiSpamInfo : IAntiSpamInfo
 	public required ItemCensorType CensorType { get; set; }
 
 	/// <summary>
-	///     本次结果涉及到的不同策略版本信息。在跨版本比较中，可用于比较不同版本的效果。未进行跨版本比较时该属性为 <c>null</c>。
-	/// </summary>
-	public StrategyVersion[]? StrategyVersions { get; set; }
-
-	/// <summary>
-	///     是否为关联命中。
-	/// </summary>
-	public required bool IsRelatedHit { get; set; }
-
-	/// <summary>
-	///     本次检测命中的所有标签。
-	/// </summary>
-	public required TextHitLabel[] Labels { get; set; }
-
-	/// <summary>
-	/// 对 <see cref="IAntiSpamInfo.Labels"/> 的实现。
+	///     对 <see cref="IAntiSpamInfo.Labels" /> 的实现。
 	/// </summary>
 	IEnumerable<IHitLabel> IAntiSpamInfo.Labels => Labels;
 }

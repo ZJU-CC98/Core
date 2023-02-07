@@ -6,17 +6,12 @@
 public class ImageHitSubLabel : IHitSubLabel
 {
 	/// <summary>
-	///     结果命中的子标签标识。
-	/// </summary>
-	public required string SubLabel { get; set; }
-
-	/// <summary>
-	/// 图像命中的原因。
+	///     图像命中的原因。
 	/// </summary>
 	public required ImageHitStrategy HitStrategy { get; set; }
 
 	/// <summary>
-	/// 本次命中的置信度。
+	///     本次命中的置信度。
 	/// </summary>
 	public required double Rate { get; set; }
 
@@ -24,6 +19,11 @@ public class ImageHitSubLabel : IHitSubLabel
 	///     结果命中的详细信息。
 	/// </summary>
 	public ImageHitSubLabelDetailInfo? Details { get; set; }
+
+	/// <summary>
+	///     结果命中的子标签标识。
+	/// </summary>
+	public required string SubLabel { get; set; }
 
 	/// <inheritdoc />
 	double? IHitSubLabel.Rate => Rate;

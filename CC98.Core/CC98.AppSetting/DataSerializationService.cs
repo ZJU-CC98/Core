@@ -1,9 +1,4 @@
-﻿using System;
-using System.Text;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-
-namespace CC98;
+﻿namespace CC98;
 
 /// <summary>
 ///     提供序列化的辅助方法。

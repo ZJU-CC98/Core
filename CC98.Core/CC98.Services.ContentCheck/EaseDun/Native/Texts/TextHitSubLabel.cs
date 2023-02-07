@@ -6,14 +6,14 @@
 public class TextHitSubLabel : IHitSubLabel
 {
 	/// <summary>
-	///     结果命中的子标签标识。
-	/// </summary>
-	public required string SubLabel { get; set; }
-
-	/// <summary>
 	///     结果命中的详细信息。
 	/// </summary>
 	public TextHitSubLabelDetailInfo? Details { get; set; }
+
+	/// <summary>
+	///     结果命中的子标签标识。
+	/// </summary>
+	public required string SubLabel { get; set; }
 
 	/// <inheritdoc />
 	double? IHitSubLabel.Rate => null;

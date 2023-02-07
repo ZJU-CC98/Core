@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using CC98.Services.ContentCheck.EaseDun.Native;
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
+
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun;
@@ -54,20 +55,28 @@ public class EaseDunService : IDisposable
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。操作结果为文本检测结果。</returns>
 	/// <exception cref="InvalidOperationException">操作过程中发生错误。</exception>
-	public async Task<TextAntiSpamInfo> BatchCheckTextAsync(TextBatchDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
+	public async Task<TextDetectItemResult[]> BatchCheckTextAsync(TextBatchDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
 	{
-		var responseMessage = await HttpClient.PostAsync(EaseDunConstants.TextBatchCheckUri,
-			new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
+		try
+		{
+			var responseMessage = await HttpClient.PostAsync(EaseDunConstants.TextBatchCheckUri,
+				new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
 
 
-		var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<TextDetectItemResult[]>>(
-			new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
+			var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<TextDetectItemResult[]>>(
+				new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
 
-		if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
+			if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
 
-		if (data.Code != 200) throw new InvalidOperationException(data.Message);
+			if (data.Code != 200) throw new InvalidOperationException(data.Message);
 
-		return data.Result!.Single().AntiSpam;
+			return data.Result!;
+		}
+		catch (Exception ex)
+		{
+			throw new EaseDunServiceException("无法获得网易易盾服务器响应结果。", ex);
+		}
+
 	}
 
 	/// <summary>
@@ -78,18 +87,25 @@ public class EaseDunService : IDisposable
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。操作结果为图像检测结果。</returns>
 	/// <exception cref="InvalidOperationException">操作过程中发生错误。</exception>
-	public async Task<IEnumerable<ImageAntiSpamInfo>> CheckImageAsync(ImageDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
+	public async Task<ImageDetectResult[]> CheckImageAsync(ImageDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
 	{
-		var responseMessage = await HttpClient.PostAsync(EaseDunConstants.ImageCheckUri,
-			new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
+		try
+		{
+			var responseMessage = await HttpClient.PostAsync(EaseDunConstants.ImageCheckUri,
+				new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
 
-		var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<ImageDetectResult[]>>(
-			new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
+			var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<ImageDetectResult[]>>(
+				new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
 
-		if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
+			if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
 
-		if (data.Code != 200) throw new InvalidOperationException(data.Message);
+			if (data.Code != 200) throw new InvalidOperationException(data.Message);
 
-		return data.Result!.Select(i => i.AntiSpam);
+			return data.Result!;
+		}
+		catch (Exception ex)
+		{
+			throw new EaseDunServiceException("无法获得网易易盾服务器响应结果。", ex);
+		}
 	}
 }

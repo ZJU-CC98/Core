@@ -3,12 +3,12 @@
 namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
 
 /// <summary>
-/// 为 <see cref="TextSingleDetectRequestBody"/> 和 <see cref="TextBatchDetectRequestBody"/> 提供公共基础类型。
+///     为 <see cref="TextSingleDetectRequestBody" /> 和 <see cref="TextBatchDetectRequestBody" /> 提供公共基础类型。
 /// </summary>
 public abstract class TextDetectRequestBodyBase : CommonRequestBody
 {
 	/// <summary>
-	/// 请求主体的格式版本。
+	///     请求主体的格式版本。
 	/// </summary>
 	public string Version { get; set; } = TextDetectSupportVersions.V5_2;
 

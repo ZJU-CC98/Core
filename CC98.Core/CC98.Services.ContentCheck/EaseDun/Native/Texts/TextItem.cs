@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
@@ -70,13 +69,13 @@ public class TextItem
 	public string? SubProduct { get; set; }
 
 	/// <summary>
-	/// 用于调用易盾智能风控服务的令牌。
+	///     用于调用易盾智能风控服务的令牌。
 	/// </summary>
 	[StringLength(256)]
 	public string? RiskControlToken { get; set; }
 
 	/// <summary>
-	/// 易盾只能风控服务的业务标识。
+	///     易盾只能风控服务的业务标识。
 	/// </summary>
 	[StringLength(256)]
 	public string? RiskControlBusinessId { get; set; }

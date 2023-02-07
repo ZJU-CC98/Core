@@ -1,36 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This package core types for CC98 idenetity objects.</Description>
-    <Copyright>Copyright (c) CC98 2016. All rights are reserved.</Copyright>
-    <AssemblyTitle>CC98 Identity Core Package</AssemblyTitle>
-    <NeutralLanguage>zh-CN</NeutralLanguage>
-    <Authors>CC98</Authors>
-    <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
-    <AssemblyName>CC98.Identity.Core</AssemblyName>
-    <PackageId>CC98.Identity.Core</PackageId>
-    <PackageTags>CC98</PackageTags>
-    <PackageReleaseNotes>Update to ASP.NET Core RTM</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This package core types for CC98 idenetity objects.</Description>
+		<Copyright>Copyright (c) CC98 2016. All rights are reserved.</Copyright>
+		<AssemblyTitle>CC98 Identity Core Package</AssemblyTitle>
+		<NeutralLanguage>zh-CN</NeutralLanguage>
+		<Authors>CC98</Authors>
+		<TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+		<AssemblyName>CC98.Identity.Core</AssemblyName>
+		<PackageId>CC98.Identity.Core</PackageId>
+		<PackageTags>CC98</PackageTags>
+		<PackageReleaseNotes>Update to ASP.NET Core RTM</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
+		<PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+		<PackageReference Include="System.Security.Claims" Version="4.3.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.Security" />
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+		<Reference Include="System.Security" />
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
 
 </Project>

@@ -18,19 +18,21 @@ public class ImageHitSubLabelDetailInfo : IHitSubLabelDetailInfo
 	public ImageHitLibInfo[]? LibInfos { get; set; }
 
 	/// <summary>
-	///     命中的反作弊信息。
-	/// </summary>
-	public HitAntiCheatInfo? AntiCheat { get; set; }
-
-	/// <summary>
 	///     命中的线索信息。
 	/// </summary>
 	public ImageHitInfo[]? HitInfos { get; set; }
 
+	/// <summary>
+	///     命中的反作弊信息。
+	/// </summary>
+	public HitAntiCheatInfo? AntiCheat { get; set; }
+
 	/// <inheritdoc />
 	IEnumerable<IHitKeywordInfo>? IHitSubLabelDetailInfo.Keywords => Keywords;
+
 	/// <inheritdoc />
 	IEnumerable<IHitLibInfo>? IHitSubLabelDetailInfo.LibInfos => LibInfos;
+
 	/// <inheritdoc />
 	IEnumerable<IHitInfo>? IHitSubLabelDetailInfo.HitInfos => HitInfos;
 }

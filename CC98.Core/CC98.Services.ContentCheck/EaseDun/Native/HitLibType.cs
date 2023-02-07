@@ -1,7 +1,7 @@
 ﻿namespace CC98.Services.ContentCheck.EaseDun.Native;
 
 /// <summary>
-/// 表示命中的自定义库的类型。
+///     表示命中的自定义库的类型。
 /// </summary>
 public enum HitLibType
 {
@@ -19,12 +19,14 @@ public enum HitLibType
 	///     自定义 IP 名单库。
 	/// </summary>
 	Ip,
+
 	/// <summary>
-	/// 自定义设备名单库。
+	///     自定义设备名单库。
 	/// </summary>
 	Device,
+
 	/// <summary>
-	/// 自定义图片名单库。
+	///     自定义图片名单库。
 	/// </summary>
-	Image,
+	Image
 }

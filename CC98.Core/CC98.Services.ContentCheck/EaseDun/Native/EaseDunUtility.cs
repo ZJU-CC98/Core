@@ -16,7 +16,7 @@ public static class EaseDunUtility
 	/// </summary>
 	/// <param name="secretKey">用户密钥。</param>
 	/// <param name="parameters">包含所有传输参数名称和值字典。</param>
-	/// <returns></returns>
+	/// <returns>使用 <paramref name="secretKey"/> 对所有 <paramref name="parameters"/> 数据按照规定要求加密后产生的签名字符串。</returns>
 	public static string GenerateSignature(string secretKey, IDictionary<string, string> parameters)
 	{
 		var items = parameters.OrderBy(o => o.Key, StringComparer.Ordinal);

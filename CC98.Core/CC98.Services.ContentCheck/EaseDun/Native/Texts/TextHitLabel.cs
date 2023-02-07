@@ -8,6 +8,11 @@ namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
 public class TextHitLabel : IHitLabel
 {
 	/// <summary>
+	///     本次命中的详细子分类信息。
+	/// </summary>
+	public TextHitSubLabel[]? SubLabels { get; set; }
+
+	/// <summary>
 	///     命中的标签类型。
 	/// </summary>
 	public required int Label { get; set; }
@@ -21,11 +26,6 @@ public class TextHitLabel : IHitLabel
 	///     本标签的结果命中类型。
 	/// </summary>
 	public required ItemResultSuggestion Level { get; set; }
-
-	/// <summary>
-	///     本次命中的详细子分类信息。
-	/// </summary>
-	public TextHitSubLabel[]? SubLabels { get; set; }
 
 	/// <inheritdoc />
 	IEnumerable<IHitSubLabel>? IHitLabel.SubLabels => SubLabels;

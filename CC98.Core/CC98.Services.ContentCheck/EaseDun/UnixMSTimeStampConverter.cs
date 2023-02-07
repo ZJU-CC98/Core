@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace CC98.Services.ContentCheck.EaseDun;
 
 /// <summary>
-/// 提供从 <see cref="DateTimeOffset"/> 到 <see cref="long"/> 类型的转换。
+///     提供从 <see cref="DateTimeOffset" /> 到 <see cref="long" /> 类型的转换。
 /// </summary>
 public class UnixMSTimeStampConverter : JsonConverter<DateTimeOffset>
 {

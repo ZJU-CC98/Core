@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CC98.FileUpload\CC98.FileUpload.csproj" />
+		<ProjectReference Include="..\CC98.FileUpload\CC98.FileUpload.csproj" />
 	</ItemGroup>
 
 </Project>

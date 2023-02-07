@@ -3,7 +3,7 @@
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
 /// <summary>
-/// 表示一个命中的标签。
+///     表示一个命中的标签。
 /// </summary>
 public interface IHitLabel
 {

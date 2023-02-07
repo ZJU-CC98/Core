@@ -1,9 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace CC98;
+﻿namespace CC98;
 
 /// <summary>
 ///     为 <see cref="AppSettingService{T}" /> 提供访问设置的相关设置。
@@ -32,12 +27,13 @@ public class AppSettingServiceBuilder
 	}
 
 	/// <summary>
-	/// 为设置服务添加数据库连接。
+	///     为设置服务添加数据库连接。
 	/// </summary>
 	/// <param name="connectionString">数据库连接字符串。</param>
 	/// <param name="configOptions">额外的数据库对象。</param>
 	/// <returns></returns>
-	public AppSettingServiceBuilder AddSqlServer(string connectionString, Action<SqlServerDbContextOptionsBuilder> configOptions = null)
+	public AppSettingServiceBuilder AddSqlServer(string connectionString,
+		Action<SqlServerDbContextOptionsBuilder> configOptions = null)
 	{
 		Services.AddDbContext<CC98V2DbContext>(
 			options => { options.UseSqlServer(connectionString, configOptions); });

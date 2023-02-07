@@ -1,5 +1,4 @@
 #if NETSTANDARD2_0
-
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 

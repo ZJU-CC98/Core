@@ -1,6 +1,5 @@
 ﻿#if NETSTANDARD1_3 || NET451
 
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
 namespace CC98.Authentication

@@ -34,7 +34,7 @@ public class EaseDunOptions
 	public required HitSubCategory[] HitSubCategories { get; set; }
 
 	/// <summary>
-	/// 网易易盾的服务设置。
+	///     网易易盾的服务设置。
 	/// </summary>
 	public required Dictionary<ContentCheckServiceType, EaseDunServiceItem> Services { get; set; }
 }

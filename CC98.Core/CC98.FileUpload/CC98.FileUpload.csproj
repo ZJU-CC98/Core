@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>CC98.Services</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <Authors>CC98</Authors>
-    <Company>CC98</Company>
-    <Product>CC98</Product>
-    <Description>为 CC98 应用提供文件上传核心服务。</Description>
-    <Version>1.1.1</Version>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RootNamespace>CC98.Services</RootNamespace>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<Authors>CC98</Authors>
+		<Company>CC98</Company>
+		<Product>CC98</Product>
+		<Description>为 CC98 应用提供文件上传核心服务。</Description>
+		<Version>1.1.1</Version>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="IdentityModel" Version="4.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="IdentityModel" Version="4.1.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CC98.Identity.Scopes\CC98.Identity.Scopes.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CC98.Identity.Scopes\CC98.Identity.Scopes.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
 /// <summary>
-/// 表示子标签命中的详细信息。
+///     表示子标签命中的详细信息。
 /// </summary>
 public interface IHitSubLabelDetailInfo
 {

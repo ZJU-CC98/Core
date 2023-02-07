@@ -1,33 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This package provides definition of all supported scopes in CC98 authentication service.</Description>
-    <Copyright>Copyright (c) CC98 2019. All rights are reserved.</Copyright>
-    <AssemblyTitle>CC98 Identity Scopes Package</AssemblyTitle>
-    <Authors>CC98</Authors>
-    <TargetFramework>netstandard1.0</TargetFramework>
-    <AssemblyName>CC98.Identity.Scopes</AssemblyName>
-    <PackageId>CC98.Identity.Scopes</PackageId>
-    <PackageTags>CC98</PackageTags>
-    <PackageReleaseNotes>Update to CC98 API 2.0 Interface.</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <RootNamespace>CC98.Identity</RootNamespace>
-    <Version>2.0.0</Version>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>This package provides definition of all supported scopes in CC98 authentication service.</Description>
+		<Copyright>Copyright (c) CC98 2019. All rights are reserved.</Copyright>
+		<AssemblyTitle>CC98 Identity Scopes Package</AssemblyTitle>
+		<Authors>CC98</Authors>
+		<TargetFramework>netstandard1.0</TargetFramework>
+		<AssemblyName>CC98.Identity.Scopes</AssemblyName>
+		<PackageId>CC98.Identity.Scopes</PackageId>
+		<PackageTags>CC98</PackageTags>
+		<PackageReleaseNotes>Update to CC98 API 2.0 Interface.</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/sgjsakura/CC98</PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<RootNamespace>CC98.Identity</RootNamespace>
+		<Version>2.0.0</Version>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
 
 </Project>

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-
-namespace CC98.Identity;
+﻿namespace CC98.Identity;
 
 /// <summary>
 ///     为标识提供辅助方法。该类型为静态类型。
@@ -147,7 +140,7 @@ public static class IdentityHelper
 	/// <exception cref="ArgumentNullException"><paramref name="principal" /> 或 <paramref name="roles" /> 为 null。</exception>
 	public static bool IsInAnyRole(this IPrincipal principal, params string[] roles)
 	{
-		return principal.IsInAnyRole((IEnumerable<string>) roles);
+		return principal.IsInAnyRole((IEnumerable<string>)roles);
 	}
 
 	/// <summary>
@@ -157,7 +150,7 @@ public static class IdentityHelper
 	/// <returns><paramref name="roles" /> 对应的只读权限列表。</returns>
 	public static IReadOnlyCollection<string> GenerateRoleList(params string[] roles)
 	{
-		return GenerateRoleList((IEnumerable<string>) roles);
+		return GenerateRoleList((IEnumerable<string>)roles);
 	}
 
 	/// <summary>
@@ -203,6 +196,6 @@ public static class IdentityHelper
 	/// <returns>合并后的权限列表。</returns>
 	public static IReadOnlyCollection<string> GenerateRoleList(IEnumerable<string> baseRoles, params string[] roles)
 	{
-		return GenerateRoleList(baseRoles, (IEnumerable<string>) roles);
+		return GenerateRoleList(baseRoles, (IEnumerable<string>)roles);
 	}
 }
