@@ -1,4 +1,6 @@
-﻿namespace CC98.Services;
+﻿using System.IO;
+
+namespace CC98.Services;
 
 /// <summary>
 ///     表示要上传的文件信息。

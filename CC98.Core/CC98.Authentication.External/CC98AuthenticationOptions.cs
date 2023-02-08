@@ -1,4 +1,10 @@
-﻿namespace CC98.Authentication;
+﻿using System.Security.Claims;
+using CC98.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Builder;
+
+namespace CC98.Authentication;
 
 /// <summary>
 ///     表示 CC98 身份验证的选项。

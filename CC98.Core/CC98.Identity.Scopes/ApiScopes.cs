@@ -1,4 +1,6 @@
-﻿namespace CC98.Identity;
+﻿using JetBrains.Annotations;
+
+namespace CC98.Identity;
 
 /// <summary>
 ///     包含 CC98-API 接口定义的标准领域类型。该类型为静态类型。

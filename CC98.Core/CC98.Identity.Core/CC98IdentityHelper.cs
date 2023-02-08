@@ -1,4 +1,8 @@
-﻿namespace CC98.Identity;
+﻿using System;
+using System.Globalization;
+using System.Security.Claims;
+
+namespace CC98.Identity;
 
 /// <summary>
 ///     为 CC98 声明标识提供辅助方法。该类型为静态类型。

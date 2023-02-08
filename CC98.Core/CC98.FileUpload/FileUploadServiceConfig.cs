@@ -1,4 +1,8 @@
-﻿namespace CC98.Services;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using IdentityModel;
+
+namespace CC98.Services;
 
 /// <summary>
 ///     提供文件上传服务的相关配置。

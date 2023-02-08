@@ -1,4 +1,6 @@
-﻿namespace CC98;
+﻿using JetBrains.Annotations;
+
+namespace CC98;
 
 /// <summary>
 ///     表示应用程序设置工具的选项。

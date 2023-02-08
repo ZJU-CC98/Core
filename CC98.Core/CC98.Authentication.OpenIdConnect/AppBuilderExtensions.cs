@@ -1,4 +1,6 @@
-﻿#if NETSTANDARD1_4 || NET451
+﻿using Microsoft.AspNetCore.Builder;
+
+#if NETSTANDARD1_4 || NET451
 
 namespace CC98.Authentication.OpenIdConnect
 {

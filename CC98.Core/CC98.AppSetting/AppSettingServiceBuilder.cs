@@ -1,4 +1,9 @@
-﻿namespace CC98;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CC98;
 
 /// <summary>
 ///     为 <see cref="AppSettingService{T}" /> 提供访问设置的相关设置。

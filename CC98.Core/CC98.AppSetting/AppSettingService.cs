@@ -1,4 +1,7 @@
-﻿namespace CC98;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+
+namespace CC98;
 
 /// <summary>
 ///     提供对强类型应用程序设置的访问。

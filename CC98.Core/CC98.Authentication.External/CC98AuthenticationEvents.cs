@@ -1,4 +1,6 @@
-﻿namespace CC98.Authentication;
+﻿using Microsoft.AspNetCore.Authentication.OAuth;
+
+namespace CC98.Authentication;
 
 /// <summary>
 ///     表示 CC98 身份验证的通知功能。

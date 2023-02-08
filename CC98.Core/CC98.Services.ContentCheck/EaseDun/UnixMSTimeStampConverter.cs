@@ -10,6 +10,9 @@ namespace CC98.Services.ContentCheck.EaseDun;
 public class UnixMSTimeStampConverter : JsonConverter<DateTimeOffset>
 {
 	/// <inheritdoc />
+	public override bool HandleNull => false;
+
+	/// <inheritdoc />
 	public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		var value = reader.GetInt64();

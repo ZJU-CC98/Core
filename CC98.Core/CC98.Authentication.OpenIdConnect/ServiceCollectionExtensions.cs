@@ -1,4 +1,9 @@
-﻿#if NETSTANDARD2_0
+﻿using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.DependencyInjection;
+
+#if NETSTANDARD2_0
 namespace CC98.Authentication.OpenIdConnect
 {
 	/// <summary>

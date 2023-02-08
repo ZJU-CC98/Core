@@ -1,4 +1,11 @@
-﻿namespace CC98;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace CC98;
 
 /// <summary>
 ///     为应用程序设置功能提供访问接口。

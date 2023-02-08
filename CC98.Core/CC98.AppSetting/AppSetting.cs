@@ -1,4 +1,7 @@
-﻿namespace CC98;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CC98;
 
 /// <summary>
 ///     定义一个应用程序设置。

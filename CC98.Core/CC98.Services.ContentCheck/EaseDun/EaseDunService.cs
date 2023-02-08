@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
 using CC98.Services.ContentCheck.EaseDun.Native;
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
-
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun;
@@ -48,14 +41,15 @@ public class EaseDunService : IDisposable
 	}
 
 	/// <summary>
-	/// 执行批量文本检测。
+	///     执行批量文本检测。
 	/// </summary>
 	/// <param name="request">文本检测的请求内容。</param>
 	/// <param name="secretKey">用于加密数据的加密密钥。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。操作结果为文本检测结果。</returns>
 	/// <exception cref="InvalidOperationException">操作过程中发生错误。</exception>
-	public async Task<TextDetectItemResult[]> BatchCheckTextAsync(TextBatchDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
+	public async Task<TextDetectItemResult[]> BatchCheckTextAsync(TextBatchDetectRequestBody request, string secretKey,
+		CancellationToken cancellationToken = default)
 	{
 		try
 		{
@@ -76,18 +70,18 @@ public class EaseDunService : IDisposable
 		{
 			throw new EaseDunServiceException("无法获得网易易盾服务器响应结果。", ex);
 		}
-
 	}
 
 	/// <summary>
-	/// 执行图像检测。
+	///     执行图像检测。
 	/// </summary>
 	/// <param name="request">图像检测的请求内容。</param>
 	/// <param name="secretKey">用于加密数据的加密密钥。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。操作结果为图像检测结果。</returns>
 	/// <exception cref="InvalidOperationException">操作过程中发生错误。</exception>
-	public async Task<ImageDetectResult[]> CheckImageAsync(ImageDetectRequestBody request, string secretKey, CancellationToken cancellationToken = default)
+	public async Task<ImageDetectResult[]> CheckImageAsync(ImageDetectRequestBody request, string secretKey,
+		CancellationToken cancellationToken = default)
 	{
 		try
 		{

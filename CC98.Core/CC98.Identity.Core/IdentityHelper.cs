@@ -1,4 +1,11 @@
-﻿namespace CC98.Identity;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+
+namespace CC98.Identity;
 
 /// <summary>
 ///     为标识提供辅助方法。该类型为静态类型。

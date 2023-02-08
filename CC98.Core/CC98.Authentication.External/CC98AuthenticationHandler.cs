@@ -1,6 +1,18 @@
 ﻿#if NETSTANDARD1_3 || NET451
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using CC98.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace CC98.Authentication
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
@@ -17,15 +18,15 @@ public class ImageDetectRequestBody : CommonRequestBody
 	public string Version { get; set; } = ImageDetectSupportedVersions.V5_1;
 
 	/// <summary>
-	///     该请求的子数据类型。该数据仅用于请求分类管理使用，无实际意义。
+	///     该请求的子数据类型。该数据仅用于请求分类管理使用，无实际意义。如留空则不使用此功能。
 	/// </summary>
-	public int DataType { get; set; }
+	public int? DataType { get; set; }
 
 	/// <summary>
 	///     该内容的发表时间。
 	/// </summary>
 	[JsonConverter(typeof(UnixMSTimeStampConverter))]
-	public DateTimeOffset PublishTime { get; set; }
+	public DateTimeOffset? PublishTime { get; set; }
 
 	/// <summary>
 	///     要检测的分类。
