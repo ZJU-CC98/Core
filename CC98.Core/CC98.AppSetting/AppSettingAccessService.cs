@@ -91,14 +91,15 @@ public class AppSettingAccessService
 	///     加载应用程序设置数据。
 	/// </summary>
 	/// <typeparam name="T">应用程序设置数据的类型。</typeparam>
+	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>加载的应用程序设置。如果该设置不存在，则返回 <typeparamref name="T" /> 类型的默认值。</returns>
-	public async Task<T?> LoadSettingAsync<T>()
+	public async Task<T?> LoadSettingAsync<T>(CancellationToken cancellationToken = default)
 	{
 		using var serviceScope = ScopeFactory.CreateScope();
 		await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
 
 		// 加载设置
-		var settingItem = await LoadSettingItemAsync(dbContext);
+		var settingItem = await LoadSettingItemAsync(dbContext, cancellationToken);
 
 		// 如果设置项不存在则返回默认值，否则解码数据并返回
 		return settingItem == null

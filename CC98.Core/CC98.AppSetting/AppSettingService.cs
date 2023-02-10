@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-
+﻿using System.Threading;
+using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 
 namespace CC98;
@@ -8,6 +9,7 @@ namespace CC98;
 ///     提供对强类型应用程序设置的访问。
 /// </summary>
 /// <typeparam name="T">应用程序设置的类型。</typeparam>
+[PublicAPI]
 public class AppSettingService<T>
 	where T : class
 {
@@ -102,9 +104,9 @@ public class AppSettingService<T>
 	///     异步加载当前设置。
 	/// </summary>
 	/// <returns>表示异步操作的对象。</returns>
-	public async Task LoadAsync()
+	public async Task LoadAsync(CancellationToken cancellationToken = default)
 	{
-		CurrentCore = await AccessService.LoadSettingOrDefaultAsync(Options.DefaultSetting);
+		CurrentCore = await AccessService.LoadSettingOrDefaultAsync(Options.DefaultSetting, cancellationToken);
 		IsLoaded = true;
 	}
 
@@ -120,8 +122,8 @@ public class AppSettingService<T>
 	///     异步保存当前设置。
 	/// </summary>
 	/// <returns>表示异步操作的对象。</returns>
-	public async Task SaveAsync()
+	public async Task SaveAsync(CancellationToken cancellationToken = default)
 	{
-		await AccessService.SaveSettingAsync(CurrentCore);
+		await AccessService.SaveSettingAsync(CurrentCore, cancellationToken);
 	}
 }
