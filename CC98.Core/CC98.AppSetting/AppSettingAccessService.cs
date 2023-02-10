@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -10,7 +12,7 @@ namespace CC98;
 /// <summary>
 ///     为应用程序设置功能提供访问接口。
 /// </summary>
-public class AppSettingAccessService : IDisposable
+public class AppSettingAccessService
 {
 	/// <summary>
 	///     初始化一个应用程序设置工具的新实例。
@@ -21,21 +23,15 @@ public class AppSettingAccessService : IDisposable
 	public AppSettingAccessService(IServiceScopeFactory scopeFactory, IOptions<AppSettingAccessOptions> options,
 		IDataSerializationService serializationService)
 	{
-		ServiceScope = scopeFactory.CreateScope();
-		DbContext = ServiceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+		ScopeFactory = scopeFactory;
 		Options = options.Value;
 		SerializationService = serializationService;
 	}
 
 	/// <summary>
-	///     应用服务区域。
+	///     服务域工厂对象。
 	/// </summary>
-	private IServiceScope ServiceScope { get; }
-
-	/// <summary>
-	///     获取数据库对象。
-	/// </summary>
-	private CC98V2DbContext DbContext { get; }
+	private IServiceScopeFactory ScopeFactory { get; }
 
 	/// <summary>
 	///     获取设置对象。
@@ -50,66 +46,26 @@ public class AppSettingAccessService : IDisposable
 	/// <summary>
 	///     获取应用设置对象。
 	/// </summary>
+	/// <param name="dbContext">数据库服务对象。</param>
 	/// <returns>当前应用的设置对象。如果该对象不存在则返回 null。</returns>
-	public AppSetting LoadSettingItem()
+	private AppSetting? LoadSettingItem(CC98V2DbContext dbContext)
 	{
-		return (from i in DbContext.AppSettings
-			where i.AppName == Options.AppName
-			select i).SingleOrDefault();
+		return (from i in dbContext.AppSettings
+				where i.AppName == Options.AppName
+				select i).SingleOrDefault();
 	}
 
 	/// <summary>
 	///     获取应用设置对象。
 	/// </summary>
+	/// <param name="dbContext">数据库服务对象。</param>
+	/// <param name="cancellationToken"></param>
 	/// <returns>当前应用的设置对象。如果该对象不存在则返回 null。</returns>
-	public Task<AppSetting> LoadSettingItemAsync()
+	private Task<AppSetting?> LoadSettingItemAsync(CC98V2DbContext dbContext, CancellationToken cancellationToken = default)
 	{
-		return (from i in DbContext.AppSettings
-			where i.AppName == Options.AppName
-			select i).SingleOrDefaultAsync();
-	}
-
-	/// <summary>
-	///     写入应用程序设置对象。
-	/// </summary>
-	/// <param name="appSetting">要写入的设置。</param>
-	public void SaveSettingItem(AppSetting appSetting)
-	{
-		var item = LoadSettingItem();
-
-		if (item == null)
-		{
-			DbContext.AppSettings.Add(appSetting);
-		}
-		else
-		{
-			item.Data = appSetting.Data;
-			item.Format = appSetting.Format;
-		}
-
-		DbContext.SaveChanges();
-	}
-
-	/// <summary>
-	///     写入应用程序设置对象。
-	/// </summary>
-	/// <param name="appSetting">要写入的设置。</param>
-	/// <returns>表示异步操作的对象。</returns>
-	public async Task SaveSettingItemAsync(AppSetting appSetting)
-	{
-		var item = await LoadSettingItemAsync();
-
-		if (item == null)
-		{
-			DbContext.AppSettings.Add(appSetting);
-		}
-		else
-		{
-			item.Data = appSetting.Data;
-			item.Format = appSetting.Format;
-		}
-
-		await DbContext.SaveChangesAsync();
+		return (from i in dbContext.AppSettings
+				where i.AppName == Options.AppName
+				select i).SingleOrDefaultAsync(cancellationToken);
 	}
 
 	/// <summary>
@@ -117,10 +73,13 @@ public class AppSettingAccessService : IDisposable
 	/// </summary>
 	/// <typeparam name="T">应用程序设置数据的类型。</typeparam>
 	/// <returns>加载的应用程序设置。如果该设置不存在，则返回 <typeparamref name="T" /> 类型的默认值。</returns>
-	public T LoadSetting<T>()
+	public T? LoadSetting<T>()
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 加载设置
-		var settingItem = LoadSettingItem();
+		var settingItem = LoadSettingItem(dbContext);
 
 		// 如果设置项不存在则返回默认值，否则解码数据并返回
 		return settingItem == null
@@ -133,10 +92,13 @@ public class AppSettingAccessService : IDisposable
 	/// </summary>
 	/// <typeparam name="T">应用程序设置数据的类型。</typeparam>
 	/// <returns>加载的应用程序设置。如果该设置不存在，则返回 <typeparamref name="T" /> 类型的默认值。</returns>
-	public async Task<T> LoadSettingAsync<T>()
+	public async Task<T?> LoadSettingAsync<T>()
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 加载设置
-		var settingItem = await LoadSettingItemAsync();
+		var settingItem = await LoadSettingItemAsync(dbContext);
 
 		// 如果设置项不存在则返回默认值，否则解码数据并返回
 		return settingItem == null
@@ -151,15 +113,18 @@ public class AppSettingAccessService : IDisposable
 	/// <returns>表示异步操作的对象。</returns>
 	public void SaveSetting<T>(T appSetting)
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 设置数据
 		var settingData = SerializationService.Serialize(appSetting, Options.DataFormat);
 
 		// 加载现有设置
-		var item = LoadSettingItem();
+		var item = LoadSettingItem(dbContext);
 
 		// 如果现有设置不存在，则创建新设置
 		if (item == null)
-			DbContext.AppSettings.Add(new()
+			dbContext.AppSettings.Add(new()
 			{
 				Format = Options.DataFormat,
 				AppName = Options.AppName,
@@ -168,7 +133,7 @@ public class AppSettingAccessService : IDisposable
 		else
 			item.Data = settingData;
 
-		DbContext.SaveChanges();
+		dbContext.SaveChanges();
 	}
 
 	/// <summary>
@@ -176,18 +141,22 @@ public class AppSettingAccessService : IDisposable
 	/// </summary>
 	/// <typeparam name="T">应用程序设置数据的类型。</typeparam>
 	/// <param name="appSetting">要写入的应用程序设置。</param>
+	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的对象。</returns>
-	public async Task SaveSettingAsync<T>(T appSetting)
+	public async Task SaveSettingAsync<T>(T appSetting, CancellationToken cancellationToken = default)
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 设置数据
 		var settingData = SerializationService.Serialize(appSetting, Options.DataFormat);
 
 		// 加载现有设置
-		var item = await LoadSettingItemAsync();
+		var item = await LoadSettingItemAsync(dbContext, cancellationToken);
 
 		// 如果现有设置不存在，则创建新设置
 		if (item == null)
-			DbContext.AppSettings.Add(new()
+			dbContext.AppSettings.Add(new()
 			{
 				Format = Options.DataFormat,
 				AppName = Options.AppName,
@@ -196,7 +165,7 @@ public class AppSettingAccessService : IDisposable
 		else
 			item.Data = settingData;
 
-		await DbContext.SaveChangesAsync();
+		await dbContext.SaveChangesAsync(cancellationToken);
 	}
 
 	/// <summary>
@@ -207,8 +176,11 @@ public class AppSettingAccessService : IDisposable
 	/// <returns>当前数据库中的设置。如果设置不存在，则返回 <paramref name="defaultValue" />。</returns>
 	public T LoadSettingOrDefault<T>(T defaultValue)
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 加载当前设置项目
-		var settingItem = LoadSettingItem();
+		var settingItem = LoadSettingItem(dbContext);
 
 		// 如果设置存在，则读取内容
 		if (settingItem != null)
@@ -223,26 +195,21 @@ public class AppSettingAccessService : IDisposable
 	/// </summary>
 	/// <typeparam name="T">应用程序的数据数据类型。</typeparam>
 	/// <param name="defaultValue">当数据不存在时使用的默认值。</param>
+	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>当前数据库中的设置。如果设置不存在，则返回 <paramref name="defaultValue" />。</returns>
-	public async Task<T> LoadSettingOrDefaultAsync<T>(T defaultValue)
+	public async Task<T> LoadSettingOrDefaultAsync<T>(T defaultValue, CancellationToken cancellationToken = default)
 	{
+		using var serviceScope = ScopeFactory.CreateScope();
+		await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<CC98V2DbContext>();
+
 		// 加载当前设置项目
-		var settingItem = await LoadSettingItemAsync();
+		var settingItem = await LoadSettingItemAsync(dbContext, cancellationToken);
 
 		// 如果设置存在，则读取内容
 		if (settingItem != null)
 			return SerializationService.Deserialize<T>(settingItem.Data, Options.DataFormat);
 		// 否则写入新内容
-		await SaveSettingAsync(defaultValue);
+		await SaveSettingAsync(defaultValue, cancellationToken);
 		return defaultValue;
-	}
-
-	/// <summary>
-	///     释放该对象占用的所有资源。
-	/// </summary>
-	public void Dispose()
-	{
-		DbContext?.Dispose();
-		ServiceScope?.Dispose();
 	}
 }

@@ -1,9 +1,12 @@
-﻿namespace CC98;
+﻿using JetBrains.Annotations;
+
+namespace CC98;
 
 /// <summary>
 ///     表示应用程序的选项相关功能的设置。
 /// </summary>
 /// <typeparam name="T">保存应用程序设置的数据对象类型。</typeparam>
+[PublicAPI]
 public class AppSettingOptions<T>
 	where T : class
 {

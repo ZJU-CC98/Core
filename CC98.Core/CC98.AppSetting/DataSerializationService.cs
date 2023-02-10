@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
+
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace CC98;
 
@@ -18,6 +19,12 @@ public class DataSerializationService : IDataSerializationService
 	protected virtual Encoding StringEncoding { get; } = Encoding.UTF8;
 
 	/// <summary>
+	/// 获取 JSON 序列化的默认设置。
+	/// </summary>
+	[PublicAPI]
+	protected virtual JsonSerializerOptions JsonSerializerOptions { get; } = new(JsonSerializerDefaults.General);
+
+	/// <summary>
 	///     用给定的格式解码数据。
 	/// </summary>
 	/// <typeparam name="T">数据的类型。</typeparam>
@@ -28,7 +35,7 @@ public class DataSerializationService : IDataSerializationService
 	{
 		return format switch
 		{
-			AppSettingFormats.Json => JsonConvert.DeserializeObject<T>(DecodeString(data)),
+			AppSettingFormats.Json => JsonSerializer.Deserialize<T>(DecodeString(data), JsonSerializerOptions)!,
 			_ => throw new NotSupportedException($"序列化程序不支持 {format} 格式的数据。")
 		};
 	}
@@ -44,7 +51,7 @@ public class DataSerializationService : IDataSerializationService
 	{
 		return format switch
 		{
-			AppSettingFormats.Json => EncodeString(JsonConvert.SerializeObject(data)),
+			AppSettingFormats.Json => EncodeString(JsonSerializer.Serialize(data, JsonSerializerOptions)),
 			_ => throw new NotSupportedException($"序列化程序不支持 {format} 格式的数据。")
 		};
 	}

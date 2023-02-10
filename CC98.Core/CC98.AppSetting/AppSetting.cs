@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace CC98;
 
 /// <summary>
 ///     定义一个应用程序设置。
 /// </summary>
 [Table("AppSettingSet")]
-public class AppSetting
+[Index(nameof(AppName), IsUnique = true)]
+internal class AppSetting
 {
 	/// <summary>
 	///     获取或设置设置的标识。
@@ -19,17 +22,16 @@ public class AppSetting
 	///     获取或设置应用的名称。
 	/// </summary>
 	[StringLength(50)]
-	[Required]
-	public string AppName { get; set; }
+	public required string AppName { get; set; }
 
 	/// <summary>
 	///     获取或设置数据的格式。
 	/// </summary>
 	[StringLength(50)]
-	public string Format { get; set; }
+	public required string Format { get; set; }
 
 	/// <summary>
 	///     获取或设置应用的数据。
 	/// </summary>
-	public byte[] Data { get; set; }
+	public required byte[] Data { get; set; }
 }

@@ -8,7 +8,7 @@
 		<VersionPrefix>1.0.1</VersionPrefix>
 		<Authors>CC98</Authors>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>CC98.AppSetting</AssemblyName>
+		<AssemblyName>CC98.AppSettings</AssemblyName>
 		<PackageId>CC98.AppSetting</PackageId>
 		<PackageTags>CC98</PackageTags>
 		<PackageReleaseNotes>Update to match the service scope requirement in ASP.NET Core 3.0</PackageReleaseNotes>
@@ -20,7 +20,6 @@
 		<Version>3.0.0</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<RootNamespace>CC98</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

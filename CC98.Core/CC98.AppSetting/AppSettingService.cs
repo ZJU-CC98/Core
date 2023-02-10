@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 using Microsoft.Extensions.Options;
 
 namespace CC98;
@@ -47,7 +48,7 @@ public class AppSettingService<T>
 	/// <summary>
 	///     当前值的内部值。
 	/// </summary>
-	protected T CurrentCore { get; set; }
+	protected T? CurrentCore { get; set; }
 
 	/// <summary>
 	///     获取或设置应用程序的当前设置。
@@ -70,7 +71,7 @@ public class AppSettingService<T>
 					break;
 			}
 
-			return CurrentCore;
+			return CurrentCore!;
 		}
 		set
 		{

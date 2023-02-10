@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -19,7 +20,7 @@ public static class ServiceCollectionExtensions
 	{
 		services.TryAddSingleton<IDataSerializationService, DataSerializationService>();
 		services.TryAddSingleton<AppSettingAccessService>();
-
+		
 		if (setupAction != null)
 			services.Configure(setupAction);
 	}
@@ -33,13 +34,22 @@ public static class ServiceCollectionExtensions
 	/// <returns>可用于进一步配置访问服务的服务生成器。</returns>
 	public static AppSettingServiceBuilder AddAppSetting<T>(this IServiceCollection services,
 		Action<AppSettingOptions<T>>? setupAction = null)
-		where T : class
+		where T : class, IAppSettingWithDefaultValue<T>
 	{
 		services.TryAddSingleton<AppSettingService<T>>();
-
-		if (setupAction != null)
-			services.Configure(setupAction);
+		services.Configure(setupAction ?? ConfigureDefaultAppSettingOptions);
 
 		return new(services);
+	}
+
+	/// <summary>
+	/// 提供对应用程序设置服务的默认配置。
+	/// </summary>
+	/// <typeparam name="T">应用程序配置服务的类型。</typeparam>
+	/// <param name="options"></param>
+	private static void ConfigureDefaultAppSettingOptions<T>(AppSettingOptions<T> options)
+		where T : class, IAppSettingWithDefaultValue<T>
+	{
+		options.DefaultSetting = T.Default;
 	}
 }

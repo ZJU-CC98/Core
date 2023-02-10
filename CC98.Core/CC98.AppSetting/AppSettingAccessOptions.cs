@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace CC98;
 
@@ -20,6 +21,7 @@ public class AppSettingAccessOptions
 	/// </summary>
 	/// <param name="appName">应用的名称。</param>
 	/// <param name="dataFormat">应用的数据格式。</param>
+	[SetsRequiredMembers]
 	public AppSettingAccessOptions(string appName, string dataFormat)
 	{
 		AppName = appName;
@@ -29,10 +31,10 @@ public class AppSettingAccessOptions
 	/// <summary>
 	///     获取或设置应用的名称。
 	/// </summary>
-	public string AppName { get; set; }
+	public required string AppName { get; set; }
 
 	/// <summary>
 	///     获取或设置数据的格式。
 	/// </summary>
-	public string DataFormat { get; set; }
+	public required string DataFormat { get; set; }
 }
