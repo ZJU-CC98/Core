@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
+
 using JetBrains.Annotations;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;

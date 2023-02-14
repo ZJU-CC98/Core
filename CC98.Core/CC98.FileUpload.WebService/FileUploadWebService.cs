@@ -124,7 +124,7 @@ public class FileUploadWebService
 	/// <param name="files">要上传的一个或多个文件的信息。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
-	public Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files,
+	public Task<IEnumerable<string>> UploadAsync([NoEnumeration] IEnumerable<UploadFileInfo> files,
 		CancellationToken cancellationToken = default)
 	{
 		return UploadAsync(files, InnerService.Config.DefaultSubPath, InnerService.Config.CompressByDefault,
@@ -139,7 +139,7 @@ public class FileUploadWebService
 	/// <param name="compressImage">是否压缩图像。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。任务结果包含上传后实际文件的访问地址。</returns>
-	public Task<IEnumerable<string>> UploadAsync(IEnumerable<UploadFileInfo> files, string subPath,
+	public Task<IEnumerable<string>> UploadAsync([NoEnumeration] IEnumerable<UploadFileInfo> files, string subPath,
 		bool compressImage, CancellationToken cancellationToken = default)
 	{
 		return InnerService.UploadAsync(files, subPath, compressImage, cancellationToken);
