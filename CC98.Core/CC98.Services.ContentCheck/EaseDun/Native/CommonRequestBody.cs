@@ -56,6 +56,12 @@ public class CommonRequestBody
 	public string? Signature { get; private set; }
 
 	/// <summary>
+	/// 传输中可附加的额外扩充信息。
+	/// </summary>
+	[JsonConverter(typeof(JsonMergeToParentConverter))]
+	public RequestExtendedInfo ExtendedInfo { get; set; } = new();
+
+	/// <summary>
 	///     为该对象生成签名并产生请求主体数据。
 	/// </summary>
 	public IDictionary<string, string> GenerateSignature(string secretKey)
