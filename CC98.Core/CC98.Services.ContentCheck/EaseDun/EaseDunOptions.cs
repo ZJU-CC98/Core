@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CC98.Services.ContentCheck.EaseDun;
 
@@ -26,15 +27,15 @@ public class EaseDunOptions
 	/// <summary>
 	///     网易易盾查询配置的查询标签。
 	/// </summary>
-	public required CheckLabel[] CheckLabels { get; set; }
+	public required CheckLabel[] CheckLabels { get; set; } = Array.Empty<CheckLabel>();
 
 	/// <summary>
 	///     网易易盾提供的命中子标签。
 	/// </summary>
-	public required HitSubCategory[] HitSubCategories { get; set; }
+	public required HitSubCategory[] HitSubCategories { get; set; } = Array.Empty<HitSubCategory>();
 
 	/// <summary>
 	///     网易易盾的服务设置。
 	/// </summary>
-	public required Dictionary<ContentCheckServiceType, EaseDunServiceItem> Services { get; set; }
+	public required Dictionary<ContentCheckServiceType, EaseDunServiceItem> Services { get; set; } = new();
 }
