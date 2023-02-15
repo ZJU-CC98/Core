@@ -13,6 +13,9 @@ public class JsonMergeToParentConverter : JsonConverter<object>
 	public override bool HandleNull => true;
 
 	/// <inheritdoc />
+	public override bool CanConvert(Type typeToConvert) => true;
+
+	/// <inheritdoc />
 	public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		throw new NotSupportedException("不支持在反序列化中使用该特性。");
