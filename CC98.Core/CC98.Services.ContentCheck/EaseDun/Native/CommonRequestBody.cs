@@ -9,6 +9,7 @@ using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
 
 using JetBrains.Annotations;
+using Sakura.Text.Json.JsonFlattener.Core;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
@@ -19,7 +20,7 @@ namespace CC98.Services.ContentCheck.EaseDun.Native;
 [JsonDerivedType(typeof(TextSingleDetectRequestBody))]
 [JsonDerivedType(typeof(TextBatchDetectRequestBody))]
 [JsonDerivedType(typeof(ImageDetectRequestBody))]
-public class CommonRequestBody
+public partial class CommonRequestBody
 {
 	/// <summary>
 	///     请求密钥。
@@ -58,7 +59,8 @@ public class CommonRequestBody
 	/// <summary>
 	/// 传输中可附加的额外扩充信息。
 	/// </summary>
-	[JsonConverter(typeof(JsonMergeToParentConverter))]
+	[JsonFlatten]
+	[JsonIgnore]
 	public RequestExtendedInfo ExtendedInfo { get; set; } = new();
 
 	/// <summary>

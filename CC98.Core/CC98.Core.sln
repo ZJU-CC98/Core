@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebugTest", "DebugTest\DebugTest.csproj", "{E3D5509A-C936-4746-B4DF-7EBBB82005FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{FCFF9164-B809-41E7-A415-E27C301D0B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFF9164-B809-41E7-A415-E27C301D0B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFF9164-B809-41E7-A415-E27C301D0B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D5509A-C936-4746-B4DF-7EBBB82005FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D5509A-C936-4746-B4DF-7EBBB82005FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D5509A-C936-4746-B4DF-7EBBB82005FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D5509A-C936-4746-B4DF-7EBBB82005FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
