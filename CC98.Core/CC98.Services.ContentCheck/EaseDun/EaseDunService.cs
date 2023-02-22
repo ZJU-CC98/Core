@@ -40,6 +40,7 @@ public class EaseDunService : IDisposable
 		GC.SuppressFinalize(this);
 	}
 
+
 	/// <summary>
 	///     执行批量文本检测。
 	/// </summary>
@@ -58,9 +59,8 @@ public class EaseDunService : IDisposable
 
 
 			var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<TextDetectItemResult[]>>(
-				new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
-
-			if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
+				           new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken)
+			           ?? throw new InvalidOperationException("无法从服务器端获得响应。");
 
 			if (data.Code != 200) throw new InvalidOperationException(data.Message);
 
@@ -89,9 +89,8 @@ public class EaseDunService : IDisposable
 				new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
 
 			var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<ImageDetectResult[]>>(
-				new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken);
-
-			if (data == null) throw new InvalidOperationException("无法从服务器端获得响应。");
+				           new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken)
+			           ?? throw new InvalidOperationException("无法从服务器端获得响应。");
 
 			if (data.Code != 200) throw new InvalidOperationException(data.Message);
 

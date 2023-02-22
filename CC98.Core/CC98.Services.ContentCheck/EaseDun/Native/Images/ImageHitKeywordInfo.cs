@@ -1,5 +1,8 @@
 ﻿namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
+/// <summary>
+///     表示图像检测中的关键字检测结果。
+/// </summary>
 public class ImageHitKeywordInfo : IHitKeywordInfo
 {
 	/// <summary>

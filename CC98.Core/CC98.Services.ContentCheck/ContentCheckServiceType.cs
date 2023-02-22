@@ -10,24 +10,20 @@ public enum ContentCheckServiceType
 	/// <summary>
 	///     文本审查功能。
 	/// </summary>
-	[Display(Name = "文本")]
-	Text,
+	[Display(Name = "文本")] Text,
 
 	/// <summary>
 	///     图像审查功能。
 	/// </summary>
-	[Display(Name = "图像")]
-	Image,
+	[Display(Name = "图像")] Image,
 
 	/// <summary>
 	///     音频审查功能。
 	/// </summary>
-	[Display(Name = "音频")]
-	Audio,
+	[Display(Name = "音频")] Audio,
 
 	/// <summary>
 	///     视频审查功能。
 	/// </summary>
-	[Display(Name = "视频")]
-	Video
+	[Display(Name = "视频")] Video
 }

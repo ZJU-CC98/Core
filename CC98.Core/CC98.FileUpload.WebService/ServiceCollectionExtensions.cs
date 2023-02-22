@@ -1,4 +1,7 @@
 ﻿using System;
+
+using JetBrains.Annotations;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -7,6 +10,7 @@ namespace CC98.Services.Web;
 /// <summary>
 ///     提供 <see cref="IServiceCollection" /> 的扩展方法。该类型为静态类型。
 /// </summary>
+[PublicAPI]
 public static class ServiceCollectionExtensions
 {
 	/// <summary>
@@ -16,7 +20,7 @@ public static class ServiceCollectionExtensions
 	/// <param name="configOptions">用于配置文件传输服务配置的配置方法。</param>
 	/// <returns><paramref name="services" /> 对象。</returns>
 	public static IServiceCollection AddCC98FileUploadWebService(this IServiceCollection services,
-		Action<FileUploadServiceConfig> configOptions = null)
+		Action<FileUploadServiceConfig>? configOptions = null)
 	{
 		services.TryAddSingleton<FileUploadWebService>();
 

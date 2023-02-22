@@ -2,6 +2,9 @@
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
+/// <summary>
+///     表示对命中数据库的的命中信息。
+/// </summary>
 public interface IHitLibInfo
 {
 	/// <summary>

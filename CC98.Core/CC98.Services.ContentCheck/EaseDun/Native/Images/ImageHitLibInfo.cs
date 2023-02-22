@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
+/// <summary>
+///     表示图像检测中的库命中结果。
+/// </summary>
 public class ImageHitLibInfo : IHitLibInfo
 {
 	/// <summary>

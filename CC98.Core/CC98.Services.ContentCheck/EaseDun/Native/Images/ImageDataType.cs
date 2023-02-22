@@ -1,5 +1,8 @@
 ﻿namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
+/// <summary>
+///     定义 <see cref="ImageItem.Data" /> 属性的内容类型。
+/// </summary>
 public enum ImageDataType
 {
 	/// <summary>

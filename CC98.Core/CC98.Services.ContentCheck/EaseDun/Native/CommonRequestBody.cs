@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
-
 using JetBrains.Annotations;
 using Sakura.Text.Json.JsonFlattener.Core;
 
@@ -57,7 +55,7 @@ public partial class CommonRequestBody
 	public string? Signature { get; private set; }
 
 	/// <summary>
-	/// 传输中可附加的额外扩充信息。
+	///     传输中可附加的额外扩充信息。
 	/// </summary>
 	[JsonFlatten]
 	[JsonIgnore]
