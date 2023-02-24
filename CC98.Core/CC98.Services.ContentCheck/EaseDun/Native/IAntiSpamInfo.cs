@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+using CC98.Services.ContentCheck.EaseDun.Native.Images;
+using CC98.Services.ContentCheck.EaseDun.Native.Texts;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
 /// <summary>
 ///     表示对内容的审查结果。
 /// </summary>
+[JsonPolymorphic]
+[JsonDerivedType(typeof(TextAntiSpamInfo))]
+[JsonDerivedType(typeof(ImageAntiSpamInfo))]
 public interface IAntiSpamInfo
 {
 	/// <summary>
