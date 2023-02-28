@@ -17,7 +17,7 @@ public static class EaseDunConstants
 
 
 	/// <summary>
-	///     获取网易易盾文本批量检测服务的 URL 相对于 <see cref="ServiceBaseUri" /> 的相对地址。该地址由 <see cref="EaseDunService.BatchCheckTextAsync" />
+	///     获取网易易盾文本批量检测服务的 URL 相对于 <see cref="ServiceBaseUri" /> 的相对地址。该地址由 <see cref="EaseDunService.CheckTextAsync" />
 	///     方法使用。
 	/// </summary>
 	public const string TextBatchCheckUri = "text/batch-check";

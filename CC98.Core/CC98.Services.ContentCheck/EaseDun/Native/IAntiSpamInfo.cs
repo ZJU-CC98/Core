@@ -9,9 +9,8 @@ namespace CC98.Services.ContentCheck.EaseDun.Native;
 /// <summary>
 ///     表示对内容的审查结果。
 /// </summary>
-[JsonPolymorphic]
-[JsonDerivedType(typeof(TextAntiSpamInfo))]
-[JsonDerivedType(typeof(ImageAntiSpamInfo))]
+[JsonDerivedType(typeof(TextAntiSpamInfo), nameof(TextAntiSpamInfo))]
+[JsonDerivedType(typeof(ImageAntiSpamInfo), nameof(ImageAntiSpamInfo))]
 public interface IAntiSpamInfo
 {
 	/// <summary>

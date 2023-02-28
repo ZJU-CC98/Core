@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace>CC98.Services.ContentCheck</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -9,6 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\CC98.AppSetting\CC98.AppSetting.csproj" />
 		<ProjectReference Include="..\CC98.Services.ContentCheck\CC98.Services.ContentCheck.csproj" />
 	</ItemGroup>
 

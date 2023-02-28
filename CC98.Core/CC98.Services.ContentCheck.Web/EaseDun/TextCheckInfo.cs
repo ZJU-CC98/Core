@@ -1,18 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CC98.Management.Services.EaseDun;
+namespace CC98.Services.ContentCheck.EaseDun;
 
 /// <summary>
-///     表示检测的数据。
+///     表示文本检测的必须数据。
 /// </summary>
-public class TextDetectModel
+public class TextCheckInfo
 {
 	/// <summary>
-	///     检测的内容。
+	/// 表示要检测的一项或多项文本数据的集合。
 	/// </summary>
-	[Required]
-	public required string Text { get; set; }
+	public required TextCheckItemInfo[] Items { get; set; }
 
 	/// <summary>
 	///     检测的分类。
