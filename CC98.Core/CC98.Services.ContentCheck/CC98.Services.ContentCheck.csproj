@@ -3,9 +3,9 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>CC98 内容生审查服务</Title>
+		<Title>CC98 内容审查服务</Title>
 		<Company />
-		<Authors>$(Authors)</Authors>
+		<Authors>CC98</Authors>
 		<Description>本 nuget 包用于为 CC98 后台服务提供内容审查相关功能的实现。</Description>
 	</PropertyGroup>
 

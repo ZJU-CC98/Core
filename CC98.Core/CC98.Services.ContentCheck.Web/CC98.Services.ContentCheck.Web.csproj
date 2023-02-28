@@ -3,6 +3,10 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<RootNamespace>CC98.Services.ContentCheck</RootNamespace>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>CC98 内容审查服务 Web 扩展</Title>
+		<Authors>CC98</Authors>
+		<Description>该 nuget 包为 CC98 内容审查服务的 Web 业务应用程序实现提供必要的扩展支持。</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
