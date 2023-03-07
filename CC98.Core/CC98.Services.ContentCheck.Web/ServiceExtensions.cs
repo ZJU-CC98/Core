@@ -1,4 +1,6 @@
 ﻿using CC98.Services.ContentCheck.EaseDun;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,6 +33,7 @@ public static class ServiceExtensions
 
 		return services;
 	}
+
 
 	/// <summary>
 	///     添加网易易盾服务。
