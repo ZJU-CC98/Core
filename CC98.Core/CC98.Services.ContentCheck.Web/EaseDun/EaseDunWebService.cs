@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -30,8 +31,10 @@ public class EaseDunWebService : IDisposable
 	///     初始化 <see cref="EaseDunWebService" /> 服务的新实例。
 	/// </summary>
 	/// <param name="options">服务选项。</param>
-	public EaseDunWebService(IOptions<EaseDunOptions> options)
+	/// <param name="contentCheckSettingService">内容审核设置服务。</param>
+	public EaseDunWebService(IOptions<EaseDunOptions> options, AppSettingService<ContentCheckSystemSetting> contentCheckSettingService)
 	{
+		ContentCheckSettingService = contentCheckSettingService;
 		Options = options.Value;
 	}
 
@@ -49,6 +52,11 @@ public class EaseDunWebService : IDisposable
 	///     随机数生成器。用于生成请求的 <see cref="CommonRequestBody.Nonce"/> 数据。
 	/// </summary>
 	private Random Random { get; } = new();
+
+	/// <summary>
+	/// 内容审核服务设置对象。
+	/// </summary>
+	private AppSettingService<ContentCheckSystemSetting> ContentCheckSettingService { get; }
 
 	/// <inheritdoc />
 	public void Dispose()
@@ -169,5 +177,32 @@ public class EaseDunWebService : IDisposable
 	{
 		var requestBody = await GenerateImageRequestBodyCoreAsync(model, extendedInfo, cancellationToken);
 		return await InnerService.CheckImageAsync(requestBody, Options.SecretKey, cancellationToken);
+	}
+
+	/// <summary>
+	/// 获取特定审核类型的默认审核标签。
+	/// </summary>
+	/// <param name="serviceType">审核类型。</param>
+	/// <returns><paramref name="serviceType"/> 对应的所有审核标签的集合。如果返回 <c>null</c>，则表示对该类型禁用了审核。</returns>
+	/// <exception cref="InvalidOperationException">系统后台未正确配置审核标签。</exception>
+	public int[]? GetDefaultLabels(ContentCheckServiceType serviceType)
+	{
+		if (ContentCheckSettingService.Current.Global.CheckTypes.TryGetValue(serviceType, out var setting))
+		{
+			switch (setting.CheckMode)
+			{
+				case ContentCheckTypeMode.All:
+					return Options.Services[serviceType].EnabledLabels;
+				case ContentCheckTypeMode.Disabled:
+					return null;
+				case ContentCheckTypeMode.Custom:
+					return setting.Labels
+						   ?? throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
+							   "系统后台针对服务类型 {0} 配置了自定义审核模式，但实际未设置任何审审核标签。", serviceType));
+			}
+		}
+
+		throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture, "系统后台没有针对服务类型 {0} 正确配置审核设置。",
+			serviceType));
 	}
 }
