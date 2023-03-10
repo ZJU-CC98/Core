@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CC98.Services.ContentCheck;
+﻿namespace CC98.Services.ContentCheck.Data;
 
 /// <summary>
 /// 表示针对单类内容的检查设置。

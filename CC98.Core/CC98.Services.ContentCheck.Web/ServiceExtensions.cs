@@ -1,8 +1,8 @@
-﻿using CC98.Services.ContentCheck.EaseDun;
-
+﻿using System;
+using CC98.Services.ContentCheck.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CC98.Services.ContentCheck;
 
@@ -20,32 +20,22 @@ public static class ServiceExtensions
 	/// 为应用添加内容审查服务。
 	/// </summary>
 	/// <param name="services">服务容器。</param>
-	/// <param name="connectionString">内容审查服务的连接字符串。</param>
-	public static IServiceCollection AddContentCheck(this IServiceCollection services, string connectionString)
+	/// <param name="contentCheckConnection">内容审查服务数据库连接。</param>
+	/// <param name="appSettingConnection">应用程序设置数据库连接。</param>
+	/// <returns>一个 <see cref="ContentCheckServiceBuilder"/> 对象，可用于后续进一步进行额外配置。</returns>
+	public static ContentCheckServiceBuilder AddContentCheck(this IServiceCollection services,
+		string contentCheckConnection, string appSettingConnection)
 	{
+		services.AddDbContext<ContentCheckDbContext>(options => options.UseSqlServer(contentCheckConnection));
+
 		services.AddAppSetting<ContentCheckSystemSetting>()
 			.AddAccess(options =>
 			{
 				options.AppName = AppName;
 				options.DataFormat = AppSettingFormats.Json;
 			})
-			.AddSqlServer(connectionString);
+			.AddSqlServer(appSettingConnection);
 
-		return services;
-	}
-
-
-	/// <summary>
-	///     添加网易易盾服务。
-	/// </summary>
-	/// <param name="services">服务容器。</param>
-	/// <param name="configuration">服务相关的配置设置。</param>
-	/// <returns><paramref name="services" /> 对象。</returns>
-	public static IServiceCollection AddEaseDun(this IServiceCollection services, IConfiguration configuration)
-	{
-		services.AddScoped<EaseDunWebService>();
-		services.Configure<EaseDunOptions>(configuration);
-
-		return services;
+		return new(services);
 	}
 }

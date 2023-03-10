@@ -21,4 +21,9 @@ public class EaseDunServiceItem
 	///     该服务实际目前启用的监测标签。
 	/// </summary>
 	public required int[] EnabledLabels { get; set; } = Array.Empty<int>();
+
+	/// <summary>
+	/// 该类型服务关联到的文件扩展名设置。
+	/// </summary>
+	public required string[] FileExtensions { get; set; } = Array.Empty<string>();
 }

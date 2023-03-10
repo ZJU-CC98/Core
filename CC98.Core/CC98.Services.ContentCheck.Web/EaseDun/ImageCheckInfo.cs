@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using CC98.Services.ContentCheck.EaseDun.Native;
-
 namespace CC98.Services.ContentCheck.EaseDun;
 
 /// <summary>
