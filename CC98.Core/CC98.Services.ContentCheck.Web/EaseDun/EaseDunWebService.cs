@@ -362,7 +362,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 					"对回复 {0} 进行审查时，服务器无法正确返回结果。", item.Id));
 			}
 
-			return ToResult(result.AntiSpam);
+			return ToResult(result.AntiSpam, ContentCheckServiceType.Text);
 		}
 		catch (Exception ex)
 		{
@@ -426,7 +426,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 					"为图片 {0} 进行审查时，服务器无法正确返回结果。", item.FilePath));
 			}
 
-			return ToResult(result.AntiSpam);
+			return ToResult(result.AntiSpam, ContentCheckServiceType.Image);
 
 		}
 		catch (Exception ex)
@@ -502,18 +502,21 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 	/// 将网易易盾审查结果转换为通用的结果信息。
 	/// </summary>
 	/// <param name="info">要转换的 <see cref="IAntiSpamInfo"/> 对象。</param>
+	/// <param name="serviceType">使用的服务类型。</param>
 	/// <returns>转换后的 <see cref="ContentCheckServiceExecutionResult"/> 对象。</returns>
-	private static ContentCheckServiceExecutionResult ToResult(IAntiSpamInfo info)
+	private static ContentCheckServiceExecutionResult ToResult(IAntiSpamInfo info, ContentCheckServiceType serviceType)
 	{
 		return new()
 		{
 			Result = info.Suggestion switch
 			{
-				ItemResultSuggestion.Pass => ContentCheckResultType.Pass,
-				ItemResultSuggestion.Suspect => ContentCheckResultType.Undetermined,
-				ItemResultSuggestion.Fail => ContentCheckResultType.Failed,
-				_ => ContentCheckResultType.Error
+				ItemResultSuggestion.Pass => ContentCheckResult.Pass,
+				ItemResultSuggestion.Suspect => ContentCheckResult.Undetermined,
+				ItemResultSuggestion.Fail => ContentCheckResult.Failed,
+				_ => ContentCheckResult.Error
 			},
+
+			ServiceType = serviceType,
 
 			Request = null,
 			Response = JsonSerializer.Serialize(info, new JsonSerializerOptions(JsonSerializerDefaults.General)),

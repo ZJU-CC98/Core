@@ -8,18 +8,23 @@ namespace CC98.Services.ContentCheck;
 public class ContentCheckServiceExecutionResult
 {
 	/// <summary>
+	/// 执行的内容审核类型。
+	/// </summary>
+	public required ContentCheckServiceType ServiceType { get; set; }
+
+	/// <summary>
 	/// 内容审查的最终判定结果。
 	/// </summary>
-	public ContentCheckResultType Result { get; set; }
+	public required ContentCheckResult Result { get; set; }
 
 	/// <summary>
 	/// 内容审查服务发出的请求数据。
 	/// </summary>
-	public string? Request { get; set; }
+	public required string? Request { get; set; }
 
 	/// <summary>
 	/// 内容审查服务获得的响应数据。
 	/// </summary>
-	public string? Response { get; set; }
+	public required string? Response { get; set; }
 
 }

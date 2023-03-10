@@ -3,7 +3,7 @@
 /// <summary>
 /// 表示内容审核的结果。
 /// </summary>
-public enum ContentCheckResultType
+public enum ContentCheckResult
 {
 	/// <summary>
 	/// 审核通过。

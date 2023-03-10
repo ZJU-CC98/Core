@@ -41,7 +41,7 @@ public abstract class ContentCheckItem
 	/// <summary>
 	/// 获取或设置审核的最终结果。
 	/// </summary>
-	public ContentCheckResultType Result { get; set; }
+	public ContentCheckResult Result { get; set; }
 
 	/// <summary>
 	/// 获取或设置该记录对应的所有操作记录的集合。

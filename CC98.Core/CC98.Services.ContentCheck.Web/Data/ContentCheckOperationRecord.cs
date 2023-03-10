@@ -67,5 +67,5 @@ public class ContentCheckOperationRecord
 	/// <summary>
 	/// 获取或设置审查的结果。
 	/// </summary>
-	public ContentCheckResultType Result { get; set; }
+	public ContentCheckResult Result { get; set; }
 }
