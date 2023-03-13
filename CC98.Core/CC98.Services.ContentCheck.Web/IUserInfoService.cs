@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 namespace CC98.Services.ContentCheck;
 
 /// <summary>
-/// 定义提供用户信息的服务。
+///     定义提供用户信息的服务。
 /// </summary>
 public interface IUserInfoService
 {
 	/// <summary>
-	/// 获取给定用户的信息。
+	///     获取给定用户的信息。
 	/// </summary>
 	/// <param name="userId">要获取信息的用户的标识。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>

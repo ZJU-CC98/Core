@@ -9,7 +9,7 @@ namespace CC98.Services.ContentCheck.EaseDun;
 public class TextCheckInfo
 {
 	/// <summary>
-	/// 表示要检测的一项或多项文本数据的集合。
+	///     表示要检测的一项或多项文本数据的集合。
 	/// </summary>
 	public required TextCheckItemInfo[] Items { get; set; }
 

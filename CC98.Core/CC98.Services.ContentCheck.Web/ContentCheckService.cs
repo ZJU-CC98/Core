@@ -3,9 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using CC98.Services.ContentCheck.Data;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,16 +11,16 @@ using Microsoft.Extensions.Options;
 namespace CC98.Services.ContentCheck;
 
 /// <summary>
-/// 提供内容审查服务的核心实现。
+///     提供内容审查服务的核心实现。
 /// </summary>
 public class ContentCheckService
 {
 	/// <summary>
-	/// 初始化 <see cref="ContentCheckService"/> 对象的新实例。
+	///     初始化 <see cref="ContentCheckService" /> 对象的新实例。
 	/// </summary>
-	/// <param name="serviceScopeFactory"><see cref="IServiceScopeFactory"/> 服务对象。</param>
-	/// <param name="options"><see cref="IOptions{ContentCheckOptions}"/> 服务对象。</param>
-	/// <param name="contentCheckSettingService"><see cref="AppSettingService{ContentCheckSystemSetting}"/> 服务对象。</param>
+	/// <param name="serviceScopeFactory"><see cref="IServiceScopeFactory" /> 服务对象。</param>
+	/// <param name="options"><see cref="IOptions{ContentCheckOptions}" /> 服务对象。</param>
+	/// <param name="contentCheckSettingService"><see cref="AppSettingService{ContentCheckSystemSetting}" /> 服务对象。</param>
 	public ContentCheckService(IServiceScopeFactory serviceScopeFactory, IOptions<ContentCheckOptions> options,
 		AppSettingService<ContentCheckSystemSetting> contentCheckSettingService)
 	{
@@ -32,41 +30,42 @@ public class ContentCheckService
 	}
 
 	/// <summary>
-	/// 内容审查服务程序的配置信息。
+	///     内容审查服务程序的配置信息。
 	/// </summary>
 	private ContentCheckOptions Options { get; }
 
 	private IServiceScopeFactory ServiceScopeFactory { get; }
 
 	/// <summary>
-	/// 获取内容审查服务的系统设置数据。
+	///     获取内容审查服务的系统设置数据。
 	/// </summary>
 	private AppSettingService<ContentCheckSystemSetting> ContentCheckSettingService { get; }
 
 	/// <summary>
-	/// 获取内容审核服务的全局设置。
+	///     获取内容审核服务的全局设置。
 	/// </summary>
 	private ContentCheckSetting GlobalSetting => ContentCheckSettingService.Current.Global;
 
 	/// <summary>
-	/// 尝试获取目前系统中注册的默认内容审查服务程序。
+	///     尝试获取目前系统中注册的默认内容审查服务程序。
 	/// </summary>
 	/// <returns>系统中注册的默认内容审查服务程序实例。</returns>
 	/// <exception cref="InvalidOperationException">系统未注册默认的内容审查服务程序，或者注册信息无效，或该程序无法正常初始化。</exception>
 	private IContentCheckServiceProvider GetDefaultServiceProvider(IServiceProvider serviceProvider)
-		=> GetServiceProviderByName(serviceProvider, GlobalSetting.ServiceProvider);
+	{
+		return GetServiceProviderByName(serviceProvider, GlobalSetting.ServiceProvider);
+	}
 
 	/// <summary>
-	/// 尝试获取目前系统中注册的默认内容审查服务程序。
+	///     尝试获取目前系统中注册的默认内容审查服务程序。
 	/// </summary>
 	/// <returns>系统中注册的默认内容审查服务程序实例。</returns>
 	/// <exception cref="InvalidOperationException">系统未注册默认的内容审查服务程序，或者注册信息无效，或该程序无法正常初始化。</exception>
-	private IContentCheckServiceProvider GetServiceProviderByName(IServiceProvider serviceProvider, string contentCheckServiceProvider)
+	private IContentCheckServiceProvider GetServiceProviderByName(IServiceProvider serviceProvider,
+		string contentCheckServiceProvider)
 	{
 		if (Options.ServiceProviders.TryGetValue(contentCheckServiceProvider, out var result))
-		{
 			return (IContentCheckServiceProvider)serviceProvider.GetRequiredService(result);
-		}
 
 		throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
 			"无法获取名称为 {0} 的服务，该服务未注册或无法创建。", contentCheckServiceProvider));
@@ -78,10 +77,7 @@ public class ContentCheckService
 		CancellationToken cancellationToken = default)
 	{
 		// 未产生结果。则不进行任何操作。
-		if (result == null)
-		{
-			return;
-		}
+		if (result == null) return;
 
 		// 判定是否需要记录结果。
 		var shouldRecord = recordMode switch
@@ -91,10 +87,7 @@ public class ContentCheckService
 			_ => (int)result.Result >= (int)GlobalSetting.RecordLevel
 		};
 
-		if (!shouldRecord)
-		{
-			return;
-		}
+		if (!shouldRecord) return;
 
 		await using var dbContext = serviceProvider.GetRequiredService<ContentCheckDbContext>();
 
@@ -116,7 +109,7 @@ public class ContentCheckService
 			Response = result.Response,
 			OperatorId = null,
 			Item = recordItem,
-			Time = recordItem.Time,
+			Time = recordItem.Time
 		};
 
 		dbContext.ContentCheckOperationRecords.Add(operationItem);
@@ -125,7 +118,7 @@ public class ContentCheckService
 	}
 
 	/// <summary>
-	/// 使用默认的审查服务执行发言审查操作。
+	///     使用默认的审查服务执行发言审查操作。
 	/// </summary>
 	/// <param name="item">要检查的发言信息。</param>
 	/// <param name="recordMode">本次结果的记录模式。</param>
@@ -147,13 +140,10 @@ public class ContentCheckService
 			// 查找现有记录。
 			var record =
 				await (from i in db.ContentCheckItems.OfType<PostContentCheckItem>()
-					   where i.PostId == item.Id
-					   select i).SingleOrDefaultAsync(cancellationToken);
+					where i.PostId == item.Id
+					select i).SingleOrDefaultAsync(cancellationToken);
 
-			if (record != null)
-			{
-				return record;
-			}
+			if (record != null) return record;
 
 			// 未找到，创建新记录。
 			var newRecord = new PostContentCheckItem
@@ -174,7 +164,7 @@ public class ContentCheckService
 	}
 
 	/// <summary>
-	/// 使用默认的审查服务执行发言审查操作。
+	///     使用默认的审查服务执行发言审查操作。
 	/// </summary>
 	/// <param name="item">要检查的发言信息。</param>
 	/// <param name="recordMode">本次结果的记录模式。</param>
@@ -199,10 +189,7 @@ public class ContentCheckService
 					where i.FileId == item.Id
 					select i).SingleOrDefaultAsync(cancellationToken);
 
-			if (record != null)
-			{
-				return record;
-			}
+			if (record != null) return record;
 
 			// 未找到，创建新记录。
 			var newRecord = new FileContentCheckItem

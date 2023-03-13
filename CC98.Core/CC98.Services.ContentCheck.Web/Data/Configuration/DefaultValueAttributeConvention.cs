@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 namespace CC98.Services.ContentCheck.Data.Configuration;
 
 /// <summary>
-/// 提供对 <see cref="DefaultValueAttribute"/> 的实现。
+///     提供对 <see cref="DefaultValueAttribute" /> 的实现。
 /// </summary>
 public class DefaultValueAttributeConvention : PropertyAttributeConventionBase<DefaultValueAttribute>
 {
@@ -17,7 +17,8 @@ public class DefaultValueAttributeConvention : PropertyAttributeConventionBase<D
 	}
 
 	/// <inheritdoc />
-	protected override void ProcessPropertyAdded(IConventionPropertyBuilder propertyBuilder, DefaultValueAttribute attribute,
+	protected override void ProcessPropertyAdded(IConventionPropertyBuilder propertyBuilder,
+		DefaultValueAttribute attribute,
 		MemberInfo clrMember, IConventionContext context)
 	{
 		propertyBuilder.Metadata.SetDefaultValue(attribute.Value);
