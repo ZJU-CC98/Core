@@ -282,19 +282,6 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 	}
 
 	/// <summary>
-	///     获取给定服务提供商针对特定服务类型的所有标签。
-	/// </summary>
-	/// <param name="serviceProvider">服务提供商的标识。</param>
-	/// <param name="serviceType">要检索的服务类型。</param>
-	/// <returns><paramref name="serviceType" /> 对应的服务类型的所有可用标签。</returns>
-	private int[] GetAllLabel(string serviceProvider, ContentCheckServiceType serviceType)
-	{
-		// TODO: 增加其他服务类型的支持
-		return Options.Services[serviceType].EnabledLabels;
-	}
-
-
-	/// <summary>
 	///     尝试从文件名中推测需要使用的内容审查服务类型。如果无法推测服务类型，则返回 <c>null</c>。
 	/// </summary>
 	/// <param name="fileName">文件名称。</param>
@@ -306,50 +293,13 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 			: null;
 	}
 
-
-	/// <summary>
-	///     从数据库中检索文件上传记录对应的审核记录。如没有对应的记录，则创建一个新记录。
-	/// </summary>
-	/// <param name="item">要检索审核记录的文件上传记录。</param>
-	/// <param name="dbContext">数据库上下文对象。</param>
-	/// <param name="serviceType">文件对应的服务类型。</param>
-	/// <param name="cancellationToken">用于取消操作任务的令牌。</param>
-	/// <returns>表示异步操作的任务。操作结果为 <paramref name="item" /> 对应的 <see cref="ContentCheckItem" /> 对象。</returns>
-	/// <remarks>
-	///     如 <paramref name="item" /> 对应的记录不存在，将创建一个新记录并添加到 <paramref name="dbContext" /> 中。但该方法不会提交数据库，需随后使用
-	///     <see cref="DbContext.SaveChanges()" /> 或其他类似方法提交数据库更改。
-	/// </remarks>
-	private static async Task<ContentCheckItem> GetOrCreateContentCheckItem(IUserFile item,
-		ContentCheckDbContext dbContext,
-		ContentCheckServiceType serviceType, CancellationToken cancellationToken)
-	{
-		var result =
-			await (from i in dbContext.ContentCheckItems.OfType<FileContentCheckItem>()
-				where i.FileId == item.Id
-				select i).SingleOrDefaultAsync(cancellationToken);
-
-		if (result == null)
-		{
-			result = new()
-			{
-				CheckType = serviceType,
-				Type = ContentCheckItemType.File,
-				FileId = item.Id
-			};
-
-			dbContext.ContentCheckItems.Add(result);
-		}
-
-		return result;
-	}
-
 	/// <summary>
 	///     对用户的发言内容执行审查。
 	/// </summary>
 	/// <param name="item">要检查的发言记录。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。</returns>
-	public async Task<ContentCheckServiceExecutionResult?> CheckPostAsync(IUserPost item,
+	private async Task<ContentCheckServiceExecutionResult?> CheckPostAsync(IUserPost item,
 		CancellationToken cancellationToken = default)
 	{
 		// 获取文本类型的默认审核类型
