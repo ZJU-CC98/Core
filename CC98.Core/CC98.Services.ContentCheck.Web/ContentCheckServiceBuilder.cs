@@ -36,7 +36,7 @@ public sealed class ContentCheckServiceBuilder
 	}
 
 	/// <summary>
-	/// 添加给定类型的用户信息服务。
+	///     添加给定类型的用户信息服务。
 	/// </summary>
 	/// <typeparam name="T">用户信息服务类型。</typeparam>
 	/// <returns>当前对象。</returns>
