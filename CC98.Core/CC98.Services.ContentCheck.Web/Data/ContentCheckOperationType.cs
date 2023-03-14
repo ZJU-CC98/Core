@@ -5,7 +5,7 @@ namespace CC98.Services.ContentCheck.Data;
 /// <summary>
 ///     定义内容审核操作的触发类型。
 /// </summary>
-public enum ContentCheckOperationType
+internal enum ContentCheckOperationType
 {
 	/// <summary>
 	///     系统自动审核。

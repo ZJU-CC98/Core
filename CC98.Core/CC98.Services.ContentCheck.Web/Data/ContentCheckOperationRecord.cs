@@ -8,7 +8,7 @@ namespace CC98.Services.ContentCheck.Data;
 /// <summary>
 ///     表示自动审查系统的调用记录。
 /// </summary>
-public class ContentCheckOperationRecord
+internal class ContentCheckOperationRecord
 {
 	/// <summary>
 	///     获取或设置该对象的标识。

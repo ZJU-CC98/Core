@@ -1,8 +1,4 @@
-﻿using System;
-using CC98.Services.ContentCheck.Data.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CC98.Services.ContentCheck.Data;
 
@@ -27,19 +23,11 @@ internal class ContentCheckDbContext : DbContext
 	public virtual required DbSet<ContentCheckOperationRecord> ContentCheckOperationRecords { get; set; }
 
 	/// <inheritdoc />
-	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		// 辅助方法
-		static ProviderConventionSetBuilderDependencies GetDependencies(IServiceProvider sp)
-		{
-			return sp.GetRequiredService<ProviderConventionSetBuilderDependencies>();
-		}
-
-		base.ConfigureConventions(configurationBuilder);
-
-		// 添加自定义转换
-		configurationBuilder.Conventions.Add(sp => new ExcludeFromMigrationsAttributeConvention(GetDependencies(sp)));
-		configurationBuilder.Conventions.Add(sp => new DefaultValueAttributeConvention(GetDependencies(sp)));
-		configurationBuilder.Conventions.Add(sp => new DiscriminatorAttributeConvention(GetDependencies(sp)));
+		modelBuilder.Entity<ContentCheckItem>()
+			.HasDiscriminator(p => p.Type)
+			.HasValue<PostContentCheckItem>(ContentCheckItemType.Post)
+			.HasValue<FileContentCheckItem>(ContentCheckItemType.File);
 	}
 }

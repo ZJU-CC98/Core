@@ -1,6 +1,4 @@
-﻿using CC98.Services.ContentCheck.Data;
-
-namespace CC98.Services.ContentCheck;
+﻿namespace CC98.Services.ContentCheck;
 
 /// <summary>
 ///     表示内容审查服务的运行结果。

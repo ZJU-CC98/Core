@@ -6,7 +6,7 @@ namespace CC98.Services.ContentCheck.Data;
 ///     表示对文件的检查信息。
 /// </summary>
 [Index(nameof(FileId), IsUnique = true)]
-public class FileContentCheckItem : ContentCheckItem
+internal class FileContentCheckItem : ContentCheckItem
 {
 	/// <summary>
 	///     获取或设置该项目关联到的文件的标识。

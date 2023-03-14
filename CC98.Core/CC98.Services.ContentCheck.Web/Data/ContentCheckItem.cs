@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using CC98.Services.ContentCheck.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace CC98.Services.ContentCheck.Data;
@@ -13,7 +12,7 @@ namespace CC98.Services.ContentCheck.Data;
 /// </summary>
 [Index(nameof(Time), IsDescending = new[] { true })]
 [Index(nameof(Type), nameof(Time), IsDescending = new[] { false, true })]
-public abstract class ContentCheckItem
+internal abstract class ContentCheckItem
 {
 	/// <summary>
 	///     获取或设置该记录的标识。
@@ -24,8 +23,6 @@ public abstract class ContentCheckItem
 	/// <summary>
 	///     获取或设置该记录的类型。
 	/// </summary>
-	[Discriminator(ContentCheckItemType.Post, typeof(PostContentCheckItem))]
-	[Discriminator(ContentCheckItemType.File, typeof(FileContentCheckItem))]
 	public ContentCheckItemType Type { get; set; }
 
 	/// <summary>

@@ -6,7 +6,7 @@ namespace CC98.Services.ContentCheck.Data;
 ///     表示对文本的审核记录。
 /// </summary>
 [Index(nameof(PostId), IsUnique = true)]
-public class PostContentCheckItem : ContentCheckItem
+internal class PostContentCheckItem : ContentCheckItem
 {
 	/// <summary>
 	///     获取或设置该项目关联到的发言的标识。
