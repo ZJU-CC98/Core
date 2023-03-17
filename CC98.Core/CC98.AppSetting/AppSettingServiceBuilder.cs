@@ -1,5 +1,7 @@
 ﻿using System;
+
 using JetBrains.Annotations;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,16 +40,13 @@ public class AppSettingServiceBuilder
 	}
 
 	/// <summary>
-	///     为设置服务添加数据库连接。
+	///     为设置服务配置添加数据库支持。。
 	/// </summary>
-	/// <param name="connectionString">数据库连接字符串。</param>
-	/// <param name="configOptions">额外的数据库对象。</param>
+	/// <param name="configOptions">数据库配置操作。</param>
 	/// <returns>当前对象。</returns>
-	public AppSettingServiceBuilder AddSqlServer(string connectionString,
-		Action<SqlServerDbContextOptionsBuilder>? configOptions = null)
+	public AppSettingServiceBuilder AddDbContext(Action<DbContextOptionsBuilder>? configOptions)
 	{
-		Services.AddDbContext<CC98V2DbContext>(
-			options => { options.UseSqlServer(connectionString, configOptions); });
+		Services.AddDbContext<CC98V2DbContext>(configOptions);
 		return this;
 	}
 }
