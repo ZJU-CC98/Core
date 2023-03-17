@@ -1,4 +1,7 @@
-﻿using CC98.Services.ContentCheck.Data;
+﻿using System;
+
+using CC98.Services.ContentCheck.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -19,13 +22,13 @@ public static class ServiceExtensions
 	///     为应用添加内容审查服务。
 	/// </summary>
 	/// <param name="services">服务容器。</param>
-	/// <param name="contentCheckConnection">内容审查服务数据库连接。</param>
-	/// <param name="appSettingConnection">应用程序设置数据库连接。</param>
+	/// <param name="contentCheckDbContextOptionsBuilder">内容审查服务数据库配置操作。</param>
+	/// <param name="appSettingDbContextOptionsBuilder">应用程序设置数据库配置操作。</param>
 	/// <returns>一个 <see cref="ContentCheckServiceBuilder" /> 对象，可用于后续进一步进行额外配置。</returns>
 	public static ContentCheckServiceBuilder AddContentCheck(this IServiceCollection services,
-		string contentCheckConnection, string appSettingConnection)
+		Action<DbContextOptionsBuilder>? contentCheckDbContextOptionsBuilder, Action<DbContextOptionsBuilder>? appSettingDbContextOptionsBuilder)
 	{
-		services.AddDbContext<ContentCheckDbContext>(options => options.UseSqlServer(contentCheckConnection));
+		services.AddDbContext<ContentCheckDbContext>(contentCheckDbContextOptionsBuilder);
 
 		services.AddAppSetting<ContentCheckSystemSetting>()
 			.AddAccess(options =>
@@ -33,7 +36,7 @@ public static class ServiceExtensions
 				options.AppName = AppName;
 				options.DataFormat = AppSettingFormats.Json;
 			})
-			.AddSqlServer(appSettingConnection);
+			.AddDbContext(appSettingDbContextOptionsBuilder);
 
 		services.TryAddSingleton<ContentCheckService>();
 
