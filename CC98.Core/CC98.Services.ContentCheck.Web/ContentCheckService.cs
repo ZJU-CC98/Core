@@ -3,7 +3,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CC98.Services.ContentCheck.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -94,9 +96,10 @@ public class ContentCheckService
 		// 获取内容记录
 		var recordItem = await getOfCreateItemFunc(dbContext, cancellationToken);
 
-		// 修改该项目的记录结果和时间为最新结果。
+		// 修改该项目的记录结果和时间为最新结果，并清除审核状态。
 		recordItem.Result = result.Result;
 		recordItem.Time = DateTimeOffset.Now;
+		recordItem.IsReviewed = false;
 
 		// 服务调用记录。
 		var operationItem = new ContentCheckOperationRecord
@@ -140,8 +143,8 @@ public class ContentCheckService
 			// 查找现有记录。
 			var record =
 				await (from i in db.ContentCheckItems.OfType<PostContentCheckItem>()
-					where i.PostId == item.Id
-					select i).SingleOrDefaultAsync(cancellationToken);
+					   where i.PostId == item.Id
+					   select i).SingleOrDefaultAsync(cancellationToken);
 
 			if (record != null) return record;
 
@@ -186,8 +189,8 @@ public class ContentCheckService
 			// 查找现有记录。
 			var record =
 				await (from i in db.ContentCheckItems.OfType<FileContentCheckItem>()
-					where i.FileId == item.Id
-					select i).SingleOrDefaultAsync(cancellationToken);
+					   where i.FileId == item.Id
+					   select i).SingleOrDefaultAsync(cancellationToken);
 
 			if (record != null) return record;
 

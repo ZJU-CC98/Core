@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,14 @@ internal abstract class ContentCheckItem
 	/// <summary>
 	///     获取或设置审核的最终结果。
 	/// </summary>
+	[DefaultValue(ContentCheckResult.Pass)]
 	public ContentCheckResult Result { get; set; }
+
+	/// <summary>
+	/// 获取或设置一个值，指示该对象最近的更新是否已经被人工复核。
+	/// </summary>
+	[DefaultValue(false)]
+	public bool IsReviewed { get; set; }
 
 	/// <summary>
 	///     获取或设置该记录对应的所有操作记录的集合。
