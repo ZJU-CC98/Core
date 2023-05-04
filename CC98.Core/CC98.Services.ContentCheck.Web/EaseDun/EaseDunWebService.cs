@@ -434,7 +434,8 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 			Account = userInfo.Id.ToString(),
 			NickName = userInfo.Name,
 			Age =
-				userInfo.BirthDay == null
+				// 如果未设定生日或者生日在今天之后，则视为无效
+				userInfo.BirthDay == null || userInfo.BirthDay.Value >= DateOnly.FromDateTime(DateTime.Today)
 					? null
 					: DateTime.Today.Year - userInfo.BirthDay.Value.Year,
 			Gender = userInfo.Gender switch

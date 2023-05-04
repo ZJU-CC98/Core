@@ -7,6 +7,8 @@
 		<Company />
 		<Authors>CC98</Authors>
 		<Description>本 nuget 包用于为 CC98 后台服务提供内容审查相关功能的实现。</Description>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>更新类定义以解决传输数据问题。</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
