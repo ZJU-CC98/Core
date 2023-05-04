@@ -21,6 +21,8 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<RootNamespace>CC98</RootNamespace>
+		<IncludeSymbols>False</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>

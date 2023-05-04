@@ -7,6 +7,8 @@
 		<Title>CC98 内容审查服务 Web 扩展</Title>
 		<Authors>CC98</Authors>
 		<Description>该 nuget 包为 CC98 内容审查服务的 Web 业务应用程序实现提供必要的扩展支持。</Description>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>更新JSON序列化相关代码，修正部分信息丢失错误。</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>

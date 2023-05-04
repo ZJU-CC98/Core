@@ -8,9 +8,11 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CC98.Services.ContentCheck.EaseDun.Native;
 using CC98.Services.ContentCheck.EaseDun.Native.Images;
 using CC98.Services.ContentCheck.EaseDun.Native.Texts;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -97,7 +99,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 
 		if (serviceType == null)
 		{
-			Logger.LogInformation("文件名 {0} 无对应的审查服务类型。已跳过该文件的审查。", item.FilePath);
+			Logger.LogInformation("文件名 {FileName} 无对应的审查服务类型。已跳过该文件的审查。", item.FilePath);
 			return null;
 		}
 
@@ -106,7 +108,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 			case ContentCheckServiceType.Image:
 				return await CheckImageAsync(item, cancellationToken);
 			default:
-				Logger.LogWarning("暂时不支持图像以外的文件内容审核服务。文件名：{0}, 预期的服务类型：{1}", item.FilePath, serviceType);
+				Logger.LogWarning("暂时不支持图像以外的文件内容审核服务。文件名：{FileName}, 预期的服务类型：{ServiceType}", item.FilePath, serviceType);
 				return null;
 		}
 	}
@@ -251,8 +253,8 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 					return null;
 				case ContentCheckTypeMode.Custom:
 					return setting.Labels
-					       ?? throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
-						       "系统后台针对服务类型 {0} 配置了自定义审核模式，但实际未设置任何审审核标签。", serviceType));
+						   ?? throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
+							   "系统后台针对服务类型 {0} 配置了自定义审核模式，但实际未设置任何审审核标签。", serviceType));
 			}
 
 		throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture, "系统后台没有针对服务类型 {0} 正确配置审核设置。",
@@ -268,14 +270,14 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 	{
 		return
 			(from item in Options.Services
-				let serviceType = item.Key
-				let setting = item.Value
-				from ext in setting.FileExtensions
-				select new
-				{
-					Type = serviceType,
-					Ext = ext
-				})
+			 let serviceType = item.Key
+			 let setting = item.Value
+			 from ext in setting.FileExtensions
+			 select new
+			 {
+				 Type = serviceType,
+				 Ext = ext
+			 })
 			.ToDictionary(i => i.Ext, i => i.Type, StringComparer.OrdinalIgnoreCase);
 	}
 
@@ -329,15 +331,13 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 		// 包含在发帖内容中的额外扩展数据。
 		extendedInfo.Ip = item.Ip;
 		extendedInfo.Topic = item.TopicId.ToString();
-		extendedInfo.CommenntId = item.ParentId?.ToString();
+		extendedInfo.CommentId = item.ParentId?.ToString();
 
 		try
 		{
 			var result = (await CheckTextAsync(checkInfo, extendedInfo, cancellationToken))
-				.SingleOrDefault();
-
-			if (result == null)
-				throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
+				.SingleOrDefault()
+				?? throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
 					"对回复 {0} 进行审查时，服务器无法正确返回结果。", item.Id));
 
 			return ToResult(result.AntiSpam, ContentCheckServiceType.Text);
@@ -394,11 +394,8 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 		{
 			// 执行审查
 			var result =
-				(await CheckImageAsync(checkInfo, extendedInfo, cancellationToken)).SingleOrDefault();
-
-			// 无法解析结果
-			if (result == null)
-				throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
+				(await CheckImageAsync(checkInfo, extendedInfo, cancellationToken)).SingleOrDefault()
+			?? throw new InvalidOperationException(string.Format(CultureInfo.CurrentUICulture,
 					"为图片 {0} 进行审查时，服务器无法正确返回结果。", item.FilePath));
 
 			return ToResult(result.AntiSpam, ContentCheckServiceType.Image);
