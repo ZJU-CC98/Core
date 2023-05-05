@@ -128,8 +128,8 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 	/// <returns>需要通过 HTTP 请求传输的表单内容。</returns>
 	private TextBatchDetectRequestBody GenerateTextRequestBody(TextCheckInfo info, RequestExtendedInfo? extendedInfo)
 	{
-		// 将 ImageCheckFileInfo 转换为 ImageItem 对象
-		static TextItem CreateItemFromFile(TextCheckItemInfo item)
+		// 将 TextCheckInfo 转换为 TextItem 对象
+		static TextItem CreateItem(TextCheckItemInfo item)
 		{
 			return new()
 			{
@@ -137,6 +137,16 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 				Content = item.Text,
 				Title = item.Title,
 				PublishTime = item.Time
+			};
+		}
+
+		// 将 TextCheckInfo 转换为 TextItemWithExtendInfo 对象
+		TextItemWithExtendInfo CreateItemWithExtendInfo(TextCheckItemInfo item)
+		{
+			return new()
+			{
+				Item = CreateItem(item),
+				ExtendedInfo = extendedInfo ?? new()
 			};
 		}
 
@@ -148,9 +158,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 			CheckLabels = string.Join(",", info.CheckTypes),
 			Nonce = Random.NextInt64(),
 			Timestamp = DateTimeOffset.Now,
-			Texts = info.Items.Select(CreateItemFromFile).ToArray(),
-
-			ExtendedInfo = extendedInfo ?? new()
+			Texts = info.Items.Select(CreateItemWithExtendInfo).ToArray(),
 		};
 	}
 
@@ -325,13 +333,21 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 
 		// 扩展业务信息
 		var extendedInfo =
-			await GenerateExtendInfoFromUserIdAsync(item.UserId, cancellationToken)
-			?? new();
+
+			item.IsAnonymous
+				// 如果匿名则不生成任何用户信息
+				? new()
+				// 尝试从数据库中提取用户信息，如果失败则
+				: await GenerateExtendInfoFromUserIdAsync(item.UserId, item.IsAnonymous, cancellationToken) ?? new();
 
 		// 包含在发帖内容中的额外扩展数据。
 		extendedInfo.Ip = item.Ip;
 		extendedInfo.Topic = item.TopicId.ToString();
 		extendedInfo.CommentId = item.ParentId?.ToString();
+
+		// 版面和楼层记录在扩展参数里面
+		extendedInfo.ExtNumber1 = item.BoardId;
+		extendedInfo.ExtNumber2 = item.Floor;
 
 		try
 		{
@@ -388,7 +404,7 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 
 		// 扩展审查信息
 		var extendedInfo =
-			await GenerateExtendInfoFromUserIdAsync(item.UploadUserId, cancellationToken);
+			await GenerateExtendInfoFromUserIdAsync(item.UploadUserId, null, cancellationToken);
 
 		try
 		{
@@ -411,14 +427,36 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 	///     根据用户数据创建审核操作所需的扩展数据。
 	/// </summary>
 	/// <param name="userId">用户标识。</param>
+	/// <param name="isAnonymous">是否为匿名操作。如果该参数为 <c>null</c> 表示无法判断是否匿名。</param>
 	/// <param name="cancellationToken">用于取消操作的令牌。</param>
 	/// <returns>表示异步操作的任务。操作结果为请求相关的扩展数据。</returns>
-	private async Task<RequestExtendedInfo?> GenerateExtendInfoFromUserIdAsync(int userId,
-		CancellationToken cancellationToken = default)
+	private async Task<RequestExtendedInfo?> GenerateExtendInfoFromUserIdAsync(int userId, bool? isAnonymous, CancellationToken cancellationToken = default)
 	{
+		var privacySetting = ContentCheckSettingService.Current.Global.PrivacySetting;
+
+		#region 判断是否要读取用户信息
+
+		// 是否当前内容要当做匿名处理。
+		// 对于可确定是否匿名的内容，按照实际状态判断，对于无法确定是否匿名的内容，根据隐私设置视为匿名或者为匿名状态
+		var handleAsAnonymous =
+			isAnonymous ?? privacySetting.AnonymousStateUnknownItemHandling == AnonymousStateUnknownItemHandling.AsAnonymous;
+
+		// 是否要包含用户信息
+		// 如果当前是非匿名内容，始终包含用户信息；如果是匿名内容，则看隐私设置是否允许匿名内容包含用户信息
+		var shouldIncludeUserInfo = !handleAsAnonymous || privacySetting.IncludeAnonymousItems;
+
+		// 如果不应当包含用户信息，直接结束本次任务
+		if (!shouldIncludeUserInfo)
+		{
+			return null;
+		}
+
+		#endregion
+
 		await using var scope = ServiceScopeFactory.CreateAsyncScope();
 		var userInfoCache = scope.ServiceProvider.GetService<IUserInfoService>();
 
+		// 未提供用户信息服务
 		if (userInfoCache == null)
 		{
 			Logger.LogWarning("未获取用户信息服务，将不会生成扩展信息。");
@@ -427,9 +465,12 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 
 		var userInfo = await userInfoCache.GetUserInfoAsync(userId, cancellationToken);
 
+		// 用户信息不存在
 		if (userInfo == null) return null;
 
-		return new()
+
+		// 实际数据
+		var actualData = new RequestExtendedInfo
 		{
 			Account = userInfo.Id.ToString(),
 			NickName = userInfo.Name,
@@ -447,6 +488,20 @@ public class EaseDunWebService : IContentCheckServiceProvider, IDisposable
 			RegisterTime = userInfo.RegisterTime,
 			FanCount = userInfo.FanCount,
 			Phone = userInfo.PhoneNumber
+		};
+
+		T? TrySetPrivacyItem<T>(T value, UserPrivacyInfo item) =>
+			privacySetting!.EnabledPrivacyInfos.Contains(item) ? value : default;
+
+		// 根据隐私设置进行修正并返回结果
+		return new()
+		{
+			Account = TrySetPrivacyItem(actualData.Account, UserPrivacyInfo.Id),
+			NickName = TrySetPrivacyItem(actualData.NickName, UserPrivacyInfo.Name),
+			Gender = TrySetPrivacyItem(actualData.Gender, UserPrivacyInfo.Gender),
+			RegisterTime = TrySetPrivacyItem(actualData.RegisterTime, UserPrivacyInfo.RegisterTime),
+			FanCount = TrySetPrivacyItem(actualData.FanCount, UserPrivacyInfo.FanCount),
+			Phone = TrySetPrivacyItem(actualData.Phone, UserPrivacyInfo.SchoolId)
 		};
 	}
 

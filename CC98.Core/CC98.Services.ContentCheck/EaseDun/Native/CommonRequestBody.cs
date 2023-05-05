@@ -18,7 +18,7 @@ namespace CC98.Services.ContentCheck.EaseDun.Native;
 [JsonDerivedType(typeof(TextSingleDetectRequestBody))]
 [JsonDerivedType(typeof(TextBatchDetectRequestBody))]
 [JsonDerivedType(typeof(ImageDetectRequestBody))]
-public partial class CommonRequestBody
+public class CommonRequestBody
 {
 	/// <summary>
 	///     请求密钥。
@@ -53,13 +53,6 @@ public partial class CommonRequestBody
 	/// </summary>
 	[StringLength(32)]
 	public string? Signature { get; private set; }
-
-	/// <summary>
-	///     传输中可附加的额外扩充信息。
-	/// </summary>
-	[JsonFlatten]
-	[JsonIgnore]
-	public RequestExtendedInfo ExtendedInfo { get; set; } = new();
 
 	/// <summary>
 	///     为该对象生成签名并产生请求主体数据。

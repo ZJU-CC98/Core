@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
 using JetBrains.Annotations;
+
+using Sakura.Text.Json.JsonFlattener.Core;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
 
@@ -9,7 +12,7 @@ namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
 ///     表示单个要检查的文本对象。
 /// </summary>
 [PublicAPI]
-public class TextItem
+public partial class TextItem
 {
 	/// <summary>
 	///     数据标识。用于在反馈结果中标识数据。
@@ -75,7 +78,7 @@ public class TextItem
 	public string? RiskControlToken { get; set; }
 
 	/// <summary>
-	///     易盾只能风控服务的业务标识。
+	///     易盾智能风控服务的业务标识。
 	/// </summary>
 	[StringLength(256)]
 	public string? RiskControlBusinessId { get; set; }

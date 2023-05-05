@@ -1,4 +1,6 @@
-﻿namespace CC98.Services.ContentCheck;
+﻿using System;
+
+namespace CC98.Services.ContentCheck;
 
 /// <summary>
 ///     表示内容审查服务的系统级设置。
@@ -19,7 +21,13 @@ public class ContentCheckSystemSetting : IAppSettingWithDefaultValue<ContentChec
 		{
 			RecordLevel = ContentCheckRecordLevel.All,
 			ServiceProvider = "EaseDun",
-			CheckTypes = new()
+			CheckTypes = new(),
+			PrivacySetting = new()
+			{
+				EnabledPrivacyInfos = Array.Empty<UserPrivacyInfo>(),
+				IncludeAnonymousItems = false,
+				AnonymousStateUnknownItemHandling = AnonymousStateUnknownItemHandling.AsNonAnonymous
+			}
 		}
 	};
 }

@@ -38,9 +38,24 @@ public interface IUserPost
 	int TopicId { get; }
 
 	/// <summary>
+	/// 本发言对应的版面的标识。
+	/// </summary>
+	int BoardId { get; }
+
+	/// <summary>
 	///     本发言对应的上级发言（引用）的标识。
 	/// </summary>
 	int? ParentId { get; }
+
+	/// <summary>
+	/// 本次发言的楼层。
+	/// </summary>
+	int Floor { get; set; }
+
+	/// <summary>
+	/// 本次发言是否为匿名。
+	/// </summary>
+	bool IsAnonymous { get; set; }
 
 	/// <summary>
 	///     本次发言操作的 IP 地址。

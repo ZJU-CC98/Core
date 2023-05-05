@@ -86,8 +86,10 @@ public class EaseDunService : IDisposable
 	{
 		try
 		{
-			var responseMessage = await HttpClient.PostAsync(EaseDunConstants.TextBatchCheckUri,
-				new FormUrlEncodedContent(request.GenerateSignature(secretKey)), cancellationToken);
+			var body = new FormUrlEncodedContent(request.GenerateSignature(secretKey));
+			var text = await body.ReadAsStringAsync(cancellationToken);
+
+			var responseMessage = await HttpClient.PostAsync(EaseDunConstants.TextBatchCheckUri, body, cancellationToken);
 
 
 			var data = await responseMessage.Content.ReadFromJsonAsync<CommonResponseBody<TextDetectItemResult[]>>(

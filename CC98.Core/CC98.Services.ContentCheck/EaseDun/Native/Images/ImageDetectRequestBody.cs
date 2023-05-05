@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
+using Sakura.Text.Json.JsonFlattener.Core;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
@@ -9,7 +10,7 @@ namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 ///     图片检测的请求主体。
 /// </summary>
 [PublicAPI]
-public class ImageDetectRequestBody : CommonRequestBody
+public partial class ImageDetectRequestBody : CommonRequestBody
 {
 	/// <summary>
 	///     该请求主体的数据版本。目前必须为 <see cref="ImageDetectSupportedVersions.V5_1" />。
@@ -49,4 +50,11 @@ public class ImageDetectRequestBody : CommonRequestBody
 	/// </summary>
 	[StringLength(256)]
 	public string? Token { get; set; }
+
+	/// <summary>
+	/// 业务请求的扩展字段。
+	/// </summary>
+	[JsonIgnore]
+	[JsonFlatten]
+	public RequestExtendedInfo ExtendedInfo { get; set; } = new();
 }

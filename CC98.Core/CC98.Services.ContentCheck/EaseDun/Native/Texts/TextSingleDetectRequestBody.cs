@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+
 using Sakura.Text.Json.JsonFlattener.Core;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
@@ -13,5 +14,12 @@ public partial class TextSingleDetectRequestBody : TextDetectRequestBodyBase
 	/// </summary>
 	[JsonFlatten]
 	[JsonIgnore]
-	public required TextItem Item { get; set; }
+	public TextItem Item { get; set; } = null!;
+
+	/// <summary>
+	/// 请求的扩展参数。
+	/// </summary>
+	[JsonFlatten]
+	[JsonIgnore]
+	public RequestExtendedInfo ExtendedInfo { get; set; } = new();
 }
