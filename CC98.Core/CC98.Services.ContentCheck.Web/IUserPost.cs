@@ -50,15 +50,15 @@ public interface IUserPost
 	/// <summary>
 	/// 本次发言的楼层。
 	/// </summary>
-	int Floor { get; set; }
+	int Floor { get; }
 
 	/// <summary>
 	/// 本次发言是否为匿名。
 	/// </summary>
-	bool IsAnonymous { get; set; }
+	bool IsAnonymous { get; }
 
 	/// <summary>
 	///     本次发言操作的 IP 地址。
 	/// </summary>
-	string Ip { get; set; }
+	string Ip { get; }
 }

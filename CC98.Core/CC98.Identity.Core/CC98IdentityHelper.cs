@@ -40,7 +40,7 @@ public static class CC98IdentityHelper
 	/// </summary>
 	/// <param name="identity">用户凭据。</param>
 	/// <returns>用户的头像地址。</returns>
-	public static string GetPortraitUri(this ClaimsIdentity identity)
+	public static string? GetPortraitUri(this ClaimsIdentity identity)
 	{
 		if (identity == null)
 			throw new ArgumentNullException(nameof(identity));
@@ -79,7 +79,7 @@ public static class CC98IdentityHelper
 	/// </summary>
 	/// <param name="principal">用户凭据。</param>
 	/// <returns>用户的头像地址。</returns>
-	public static string GetPortraitUri(this ClaimsPrincipal principal)
+	public static string? GetPortraitUri(this ClaimsPrincipal principal)
 	{
 		if (principal == null)
 			throw new ArgumentNullException(nameof(principal));

@@ -11,26 +11,43 @@ namespace CC98.Authentication.OpenIdConnect
 	/// </summary>
 	public static class ServiceCollectionExtensions
 	{
+		/// <summary>
+		/// 用默认配置为当前应用程序添加 CC98 OpenID Connect 身份验证服务。
+		/// </summary>
+		/// <param name="builder">应用程序对象。</param>
+		/// <returns><paramref name="builder"/> 对象。</returns>
 
 		public static AuthenticationBuilder AddCC98(this AuthenticationBuilder builder)
 
 			=> builder.AddCC98(CC98Defaults.AuthenticationScheme, _ => { });
 
 
+		/// <summary>
+		/// 用指定的信息为当前应用程序添加 CC98 OpenID Connect 身份验证服务。
+		/// </summary>
+		/// <param name="builder">应用程序对象。</param>
+		/// <param name="configureOptions">需要对 <see cref="OpenIdConnectOptions"/> 进行的额外配置过程。</param>
+		/// <returns><paramref name="builder"/> 对象。</returns>
 
 		public static AuthenticationBuilder AddCC98(this AuthenticationBuilder builder, Action<OpenIdConnectOptions> configureOptions)
 
 			=> builder.AddCC98(CC98Defaults.AuthenticationScheme, configureOptions);
 
 
-
+		/// <summary>
+		/// 用指定的信息为当前应用程序添加 CC98 OpenID Connect 身份验证服务。
+		/// </summary>
+		/// <param name="builder">应用程序对象。</param>
+		/// <param name="authenticationScheme">在身份验证过程中使用的架构名称。</param>
+		/// <param name="configureOptions">需要对 <see cref="OpenIdConnectOptions"/> 进行的额外配置过程。</param>
+		/// <returns><paramref name="builder"/> 对象。</returns>
 		public static AuthenticationBuilder AddCC98(this AuthenticationBuilder builder, string authenticationScheme, Action<OpenIdConnectOptions> configureOptions)
 
 			=> builder.AddCC98(authenticationScheme, CC98Defaults.DisplayName, configureOptions);
 
 
 		/// <summary>
-		/// 用指定的信息为当前应用程序添加
+		/// 用指定的信息为当前应用程序添加 CC98 OpenID Connect 身份验证服务。
 		/// </summary>
 		/// <param name="builder">应用程序对象。</param>
 		/// <param name="authenticationScheme">在身份验证过程中使用的架构名称。</param>
