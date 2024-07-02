@@ -6,11 +6,12 @@ namespace CC98.Services.ContentCheck.EaseDun.Native;
 ///     为所有响应提供公共抽象基础类型。
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class CommonResponseBody<T>
+public abstract class CommonResponseBody<T>
 {
 	/// <summary>
 	///     响应代码。正常为 200。
 	/// </summary>
+	[JsonPropertyName("code")]
 	public required int Code { get; set; }
 
 	/// <summary>
@@ -22,5 +23,6 @@ public class CommonResponseBody<T>
 	/// <summary>
 	///     响应的结果数据。
 	/// </summary>
+	[JsonPropertyName("result")]
 	public T? Result { get; set; }
 }

@@ -18,6 +18,12 @@ public abstract class TextDetectRequestBodyBase : CommonRequestBody
 	public string? CheckLabels { get; set; }
 
 	/// <summary>
+	/// 业务对应的策略组标识，多个组可用英文逗号分割，最多支持 20 个策略组。
+	/// </summary>
+	[StringLength(512)]
+	public string? CheckStrategyGroupIds { get; set; }
+
+	/// <summary>
 	///     SDK 提供的 Token。
 	/// </summary>
 	[StringLength(256)]

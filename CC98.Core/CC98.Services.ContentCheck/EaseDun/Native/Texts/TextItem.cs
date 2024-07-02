@@ -27,6 +27,12 @@ public partial class TextItem
 	public required string Content { get; set; }
 
 	/// <summary>
+	/// 用户传入的关联检测历史文本，用于和新一段文本关联过检。本功能需配置后生效。
+	/// </summary>
+	[StringLength(10000)]
+	public string? RelateContext { get; set; }
+
+	/// <summary>
 	///     内容的标题。对于有标题的内容建议一并提供。
 	/// </summary>
 	[StringLength(512)]
@@ -64,6 +70,13 @@ public partial class TextItem
 	/// </summary>
 	[StringLength(128)]
 	public string? Category { get; set; }
+
+	/// <summary>
+	/// 人工审核标签扩展字段，用于后台人工审核模板高级配置功能指定特殊审核逻辑。可传入任何内容，一次可传入多个标签，使用英文逗号分隔。不能使用英文字母必须小写。
+	/// </summary>
+	[StringLength(1024)]
+	[JsonPropertyName("censorExt")]
+	public string? CensorExtension { get; set; }
 
 	/// <summary>
 	///     业务结算 ID。如使用该字段，则后台将根据该字段分类统计请求的数量、金额等信息。

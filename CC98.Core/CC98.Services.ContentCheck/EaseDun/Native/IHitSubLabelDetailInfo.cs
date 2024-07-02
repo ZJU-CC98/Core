@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CC98.Services.ContentCheck.EaseDun.Native.AntiCheat;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native;
 
@@ -20,7 +21,7 @@ public interface IHitSubLabelDetailInfo
 	/// <summary>
 	///     命中的反作弊信息。
 	/// </summary>
-	HitAntiCheatInfo? AntiCheat { get; }
+	SubLabelAntiCheatInfo? AntiCheat { get; }
 
 	/// <summary>
 	///     命中的线索信息。

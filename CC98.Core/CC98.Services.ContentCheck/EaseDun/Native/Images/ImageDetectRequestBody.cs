@@ -52,6 +52,18 @@ public partial class ImageDetectRequestBody : CommonRequestBody
 	public string? Token { get; set; }
 
 	/// <summary>
+	///     用于调用易盾智能风控服务的令牌。
+	/// </summary>
+	[StringLength(256)]
+	public string? RiskControlToken { get; set; }
+
+	/// <summary>
+	///     易盾智能风控服务的业务标识。
+	/// </summary>
+	[StringLength(256)]
+	public string? RiskControlBusinessId { get; set; }
+
+	/// <summary>
 	/// 业务请求的扩展字段。
 	/// </summary>
 	[JsonIgnore]

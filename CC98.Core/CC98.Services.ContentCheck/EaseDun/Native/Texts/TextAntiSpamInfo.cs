@@ -5,18 +5,8 @@ namespace CC98.Services.ContentCheck.EaseDun.Native.Texts;
 /// <summary>
 ///     定义文本内容安全检测结果。
 /// </summary>
-public class TextAntiSpamInfo : IAntiSpamInfo
+public class TextAntiSpamInfo : ResponseItemBase, IAntiSpamInfo
 {
-	/// <summary>
-	///     检测任务的标识。该字段为网易易盾内部使用，对用户无意义。
-	/// </summary>
-	public required string TaskId { get; set; }
-
-	/// <summary>
-	///     数据标识，用于指示本结果对应的检测请求。该字段等同于请求时的 <see cref="TextItem.DataId" /> 字段。
-	/// </summary>
-	public required string DataId { get; set; }
-
 	/// <summary>
 	///     本次结果涉及到的不同策略版本信息。在跨版本比较中，可用于比较不同版本的效果。未进行跨版本比较时该属性为 <c>null</c>。
 	/// </summary>
@@ -31,6 +21,26 @@ public class TextAntiSpamInfo : IAntiSpamInfo
 	///     本次检测命中的所有标签。
 	/// </summary>
 	public required TextHitLabel[] Labels { get; set; }
+
+	/// <summary>
+	/// 本次命中的首要标签类型。
+	/// </summary>
+	public required int Label { get; set; }
+
+	/// <summary>
+	/// 命中的二级标签分类名称。
+	/// </summary>
+	public string? SecondLabel { get; set; }
+
+	/// <summary>
+	/// 命中的三级标签分类名称。
+	/// </summary>
+	public string? ThirdLabel { get; set; }
+
+	/// <summary>
+	/// 自定义动作结果。
+	/// </summary>
+	public CustomActionType? CustomAction { get; set; }
 
 	/// <summary>
 	///     对结果的推荐处理操作。

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CC98.Services.ContentCheck.EaseDun.Native.AntiCheat;
 
 namespace CC98.Services.ContentCheck.EaseDun.Native.Images;
 
@@ -25,7 +26,7 @@ public class ImageHitSubLabelDetailInfo : IHitSubLabelDetailInfo
 	/// <summary>
 	///     命中的反作弊信息。
 	/// </summary>
-	public HitAntiCheatInfo? AntiCheat { get; set; }
+	public SubLabelAntiCheatInfo? AntiCheat { get; set; }
 
 	/// <inheritdoc />
 	IEnumerable<IHitKeywordInfo>? IHitSubLabelDetailInfo.Keywords => Keywords;
